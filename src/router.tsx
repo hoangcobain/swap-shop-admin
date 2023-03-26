@@ -29,6 +29,10 @@ const Transactions = Loader(
     lazy(() => import('src/content/applications/Transactions')),
 );
 
+const UserManagement = Loader(
+    lazy(() => import('src/content/applications/UsersManagement')),
+);
+
 const UserSettings = Loader(
     lazy(() => import('src/content/applications/Users/settings')),
 );
@@ -120,7 +124,7 @@ const routes: RouteObject[] = [
             },
             {
                 path: 'users',
-                element: <Transactions />,
+                element: <UserManagement />,
             },
             {
                 path: 'categories',

@@ -9,6 +9,7 @@ import Feed from './Feed';
 import PopularTags from './PopularTags';
 import MyCards from './MyCards';
 import Addresses from './Addresses';
+import { useMeQuery } from 'src/hooks/useRequest';
 
 function ManagementUserProfile() {
     const user = {
@@ -22,6 +23,8 @@ function ManagementUserProfile() {
         location: 'Barcelona, Spain',
         followers: '465',
     };
+    const { data } = useMeQuery();
+    console.log(data);
 
     return (
         <>

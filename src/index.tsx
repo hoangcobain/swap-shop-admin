@@ -6,12 +6,23 @@ import 'nprogress/nprogress.css';
 import App from 'src/App';
 import { SidebarProvider } from 'src/contexts/SidebarContext';
 import * as serviceWorker from 'src/serviceWorker';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools/';
+
+const queryClient = new QueryClient({
+    defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 0 } },
+});
 
 ReactDOM.render(
     <HelmetProvider>
         <SidebarProvider>
             <BrowserRouter>
-                <App />
+                <QueryClientProvider client={queryClient}>
+                    <App />
+                    {process.env.NODE_ENV === 'development' && (
+                        <ReactQueryDevtools initialIsOpen={false} />
+                    )}
+                </QueryClientProvider>
             </BrowserRouter>
         </SidebarProvider>
     </HelmetProvider>,

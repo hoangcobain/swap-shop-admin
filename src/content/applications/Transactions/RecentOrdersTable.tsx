@@ -26,21 +26,20 @@ import {
 } from '@mui/material';
 
 import Label from 'src/components/Label';
-import { CryptoOrder, CryptoOrderStatus } from 'src/models/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import BulkActions from './BulkActions';
+import BulkActions from '../components/BulkActions';
 
 interface RecentOrdersTableProps {
     className?: string;
-    cryptoOrders: CryptoOrder[];
+    cryptoOrders: any;
 }
 
 interface Filters {
-    status?: CryptoOrderStatus;
+    status?: any;
 }
 
-const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
+const getStatusLabel = (cryptoOrderStatus: any): JSX.Element => {
     const map = {
         failed: {
             text: 'Failed',
@@ -61,10 +60,7 @@ const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
     return <Label color={color}>{text}</Label>;
 };
 
-const applyFilters = (
-    cryptoOrders: CryptoOrder[],
-    filters: Filters,
-): CryptoOrder[] => {
+const applyFilters = (cryptoOrders: any[], filters: Filters): any[] => {
     return cryptoOrders.filter((cryptoOrder) => {
         let matches = true;
 
@@ -77,10 +73,10 @@ const applyFilters = (
 };
 
 const applyPagination = (
-    cryptoOrders: CryptoOrder[],
+    cryptoOrders: any[],
     page: number,
     limit: number,
-): CryptoOrder[] => {
+): any[] => {
     return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 

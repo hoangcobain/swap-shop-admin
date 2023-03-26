@@ -6,14 +6,14 @@ import Footer from 'src/components/Footer';
 
 import RecentOrders from './RecentOrders';
 
-function ApplicationsTransactions() {
+function ApplicationsUsers() {
     return (
         <>
             <Helmet>
-                <title>Transactions - Applications</title>
+                <title>Users - Applications</title>
             </Helmet>
             <PageTitleWrapper>
-                <PageHeader title="Transaction" />
+                <PageHeader title="User Management" />
             </PageTitleWrapper>
             <Container maxWidth="lg">
                 <Grid
@@ -33,4 +33,4 @@ function ApplicationsTransactions() {
     );
 }
 
-export default ApplicationsTransactions;
+export default ApplicationsUsers;
