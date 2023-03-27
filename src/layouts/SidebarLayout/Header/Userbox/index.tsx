@@ -22,6 +22,9 @@ import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import { useLogoutMutaion, useMeQuery } from 'src/hooks/useRequest';
+import { path } from 'src/constants/path';
+import { useAuthContext } from 'src/contexts/AuthContext';
 
 const UserBoxButton = styled(Button)(
     ({ theme }) => `
@@ -59,14 +62,12 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
-    const user = {
-        name: 'Catherine Pike',
-        avatar: '/static/images/avatars/1.jpg',
-        jobtitle: 'Project Manager',
-    };
+    const { profile, setProfile, setIsAuthenticated } = useAuthContext();
 
     const ref = useRef<any>(null);
     const [isOpen, setOpen] = useState<boolean>(false);
+
+    const logoutMutation = useLogoutMutaion();
 
     const handleOpen = (): void => {
         setOpen(true);
@@ -76,15 +77,34 @@ function HeaderUserbox() {
         setOpen(false);
     };
 
+    const handleLogOut = (): void => {
+        logoutMutation.mutate();
+        setProfile(null);
+        setIsAuthenticated(false);
+    };
+
+    if (!Boolean(profile)) {
+        return <div>Not have profile</div>;
+    }
+
     return (
         <>
             <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-                <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+                <Avatar
+                    variant="rounded"
+                    alt={profile.username}
+                    src={
+                        profile.avatar ||
+                        'https://www.google.com.vn/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fb%2Fb6%2FImage_created_with_a_mobile_phone.png%2F640px-Image_created_with_a_mobile_phone.png&tbnid=JoR7JNzGko0S6M&vet=12ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ..i&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FImage&docid=0JWe7yDOKrVFAM&w=640&h=480&q=image&ved=2ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ'
+                    }
+                />
                 <Hidden mdDown>
                     <UserBoxText>
-                        <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+                        <UserBoxLabel variant="body1">
+                            {profile.username}
+                        </UserBoxLabel>
                         <UserBoxDescription variant="body2">
-                            {user.jobtitle}
+                            {profile.email}
                         </UserBoxDescription>
                     </UserBoxText>
                 </Hidden>
@@ -108,13 +128,18 @@ function HeaderUserbox() {
                 <MenuUserBox sx={{ minWidth: 210 }} display="flex">
                     <Avatar
                         variant="rounded"
-                        alt={user.name}
-                        src={user.avatar}
+                        alt={profile.username}
+                        src={
+                            profile.avatar ||
+                            'https://www.google.com.vn/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fb%2Fb6%2FImage_created_with_a_mobile_phone.png%2F640px-Image_created_with_a_mobile_phone.png&tbnid=JoR7JNzGko0S6M&vet=12ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ..i&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FImage&docid=0JWe7yDOKrVFAM&w=640&h=480&q=image&ved=2ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ'
+                        }
                     />
                     <UserBoxText>
-                        <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+                        <UserBoxLabel variant="body1">
+                            {profile.username}
+                        </UserBoxLabel>
                         <UserBoxDescription variant="body2">
-                            {user.jobtitle}
+                            {profile.email}
                         </UserBoxDescription>
                     </UserBoxText>
                 </MenuUserBox>
@@ -131,7 +156,12 @@ function HeaderUserbox() {
                 </List>
                 <Divider />
                 <Box sx={{ m: 1 }}>
-                    <Button color="primary" fullWidth>
+                    <Button
+                        color="primary"
+                        fullWidth
+                        onClick={handleLogOut}
+                        disabled={logoutMutation.isLoading}
+                    >
                         <LockOpenTwoToneIcon sx={{ mr: 1 }} />
                         Sign out
                     </Button>

@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useLoginMutation } from 'src/hooks/useRequest';
 import { path } from 'src/constants/path';
 import { toast } from 'react-toastify';
+import { useAuthContext } from 'src/contexts/AuthContext';
 
 const TypographyH1 = styled(Typography)(
     ({ theme }) => `
@@ -30,6 +31,7 @@ function Hero() {
     });
 
     const loginMutation = useLoginMutation();
+    const { setIsAuthenticated, setProfile } = useAuthContext();
 
     const handleLogin = (data: FormState) => {
         loginMutation.mutate(
@@ -37,8 +39,13 @@ function Hero() {
                 loginInput: data,
             },
             {
-                onSuccess: () => {
-                    console.log('Success');
+                onSuccess: (data) => {
+                    if (data.login.success === false) {
+                        toast.error(JSON.stringify(data.login.message));
+                        return;
+                    }
+                    setIsAuthenticated(true);
+                    setProfile(data.login.data);
                     navigate(path.overview);
                 },
                 onError(error: any) {
@@ -93,25 +100,36 @@ function Hero() {
                             fullWidth
                             {...register('password')}
                         />
-                        <Button
-                            size="large"
-                            variant="contained"
-                            disabled={loginMutation.isLoading}
-                            type="submit"
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                marginTop: '12px',
+                                width: '40ch',
+                            }}
                         >
-                            Sign in
-                        </Button>
-                        <Button
-                            sx={{ ml: 2 }}
-                            component="a"
-                            target="_blank"
-                            rel="noopener"
-                            href="https://bloomui.com/product/tokyo-free-white-react-typescript-material-ui-admin-dashboard"
-                            size="large"
-                            variant="text"
-                        >
-                            Forgot password ?
-                        </Button>{' '}
+                            <Button
+                                size="large"
+                                variant="contained"
+                                disabled={loginMutation.isLoading}
+                                type="submit"
+                                fullWidth
+                            >
+                                Sign in
+                            </Button>
+                            <Button
+                                sx={{ mt: 2 }}
+                                component="a"
+                                target="_blank"
+                                rel="noopener"
+                                href="https://bloomui.com/product/tokyo-free-white-react-typescript-material-ui-admin-dashboard"
+                                size="large"
+                                variant="text"
+                                fullWidth
+                            >
+                                Forgot password ?
+                            </Button>{' '}
+                        </Box>
                     </Box>
                 </Grid>
             </Grid>

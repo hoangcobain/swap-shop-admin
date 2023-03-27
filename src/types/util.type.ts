@@ -1,6 +1,6 @@
 export interface SuccessResponse<Data> {
     message: string;
-    sucess: boolean;
+    success: boolean;
     code: number;
     data: Data;
 }
