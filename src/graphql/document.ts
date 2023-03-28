@@ -1,11 +1,11 @@
 import { gql } from 'graphql-request';
 
 export const loginDocument = gql`
-    mutation Login($loginInput: LoginInput!) {
-        login(loginInput: $loginInput) {
+    mutation LoginDashboardAdmin($loginInput: LoginInput!) {
+        loginDashboardAdmin(loginInput: $loginInput) {
+            code
             message
             success
-            code
             user {
                 id
                 username

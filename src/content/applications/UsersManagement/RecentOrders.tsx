@@ -5,11 +5,7 @@ import RecentOrdersTable from './RecentOrdersTable';
 function RecentOrders() {
     const { data } = useGetUsers();
 
-    return (
-        <Card>
-            <RecentOrdersTable users={data} />
-        </Card>
-    );
+    return <Card>{data && <RecentOrdersTable users={data} />}</Card>;
 }
 
 export default RecentOrders;

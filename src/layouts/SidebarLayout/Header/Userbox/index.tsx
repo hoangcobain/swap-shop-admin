@@ -16,15 +16,13 @@ import {
     Typography,
 } from '@mui/material';
 
-import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
-import { styled } from '@mui/material/styles';
-import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
-import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
-import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
-import { useLogoutMutaion, useMeQuery } from 'src/hooks/useRequest';
-import { path } from 'src/constants/path';
+import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
+import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
+import { styled } from '@mui/material/styles';
 import { useAuthContext } from 'src/contexts/AuthContext';
+import { useLogoutMutation } from 'src/hooks/useRequest';
+import { clearLocalStorage } from 'src/utils/util';
 
 const UserBoxButton = styled(Button)(
     ({ theme }) => `
@@ -61,29 +59,32 @@ const UserBoxDescription = styled(Typography)(
 `,
 );
 
-function HeaderUserbox() {
+function HeaderUserBox() {
     const { profile, setProfile, setIsAuthenticated } = useAuthContext();
+
+    console.log(profile);
 
     const ref = useRef<any>(null);
     const [isOpen, setOpen] = useState<boolean>(false);
 
-    const logoutMutation = useLogoutMutaion();
+    const logoutMutation = useLogoutMutation();
 
-    const handleOpen = (): void => {
+    const handleOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = (): void => {
+    const handleClose = () => {
         setOpen(false);
     };
 
-    const handleLogOut = (): void => {
+    const handleLogOut = () => {
         logoutMutation.mutate();
         setProfile(null);
         setIsAuthenticated(false);
+        clearLocalStorage();
     };
 
-    if (!Boolean(profile)) {
+    if (!profile) {
         return <div>Not have profile</div>;
     }
 
@@ -171,4 +172,4 @@ function HeaderUserbox() {
     );
 }
 
-export default HeaderUserbox;
+export default HeaderUserBox;

@@ -27,7 +27,7 @@ export function useMeQuery() {
     });
 }
 
-export function useLogoutMutaion() {
+export function useLogoutMutation() {
     return useMutation({
         mutationFn: userService.logout,
     });

@@ -1,6 +1,6 @@
 import graphQLClient from 'src/libs/graphqlClient';
 import { User } from 'src/types/user.type';
-import { SuccessResponse } from 'src/types/util.type';
+import { SuccessUserResponse } from 'src/types/util.type';
 import {
     getUsersDocument,
     loginDocument,
@@ -11,7 +11,7 @@ import {
 const userService = {
     getUsers: async () => {
         const { getAllUser } = await graphQLClient.request<{
-            getAllUser: User[];
+            getAllUser: User[] | null;
         }>(getUsersDocument);
         return getAllUser;
     },
@@ -21,16 +21,16 @@ const userService = {
             password: string;
         };
     }) => {
-        const { login } = await graphQLClient.request<{
-            login: SuccessResponse<User>;
+        const { loginDashboardAdmin } = await graphQLClient.request<{
+            loginDashboardAdmin: SuccessUserResponse<User>;
         }>(loginDocument, {
             ...body,
         });
-        return { login };
+        return { loginDashboardAdmin };
     },
     me: async () => {
         const { me } = await graphQLClient.request<{
-            me: User;
+            me: User | null;
         }>(meDocument);
         return me;
     },

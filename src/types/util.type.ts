@@ -1,6 +1,6 @@
-export interface SuccessResponse<Data> {
+export interface SuccessUserResponse<Data> {
     message: string;
     success: boolean;
     code: number;
-    data: Data;
+    user: Data;
 }

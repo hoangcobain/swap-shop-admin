@@ -1,6 +1,6 @@
 import { User } from 'src/types/user.type';
-import { useState, createContext, useContext, useEffect } from 'react';
-import { useMeQuery } from 'src/hooks/useRequest';
+import { useState, createContext, useContext } from 'react';
+import { getProfile } from 'src/utils/util';
 
 export interface AuthContextProps {
     isAuthenticated: boolean;
@@ -10,21 +10,9 @@ export interface AuthContextProps {
 }
 
 const initialAuthContext: AuthContextProps = {
-    isAuthenticated: true,
+    isAuthenticated: Boolean(getProfile()),
     setIsAuthenticated: () => null,
-    profile: {
-        id: '1',
-        username: 'awd',
-        email: 'hoang210620012',
-        address: 'quan',
-        phoneNumber: 'awdawd',
-        fullName: 'asd',
-        birthday: 'asd',
-        avatar: 'asd',
-        rating: 12,
-        createdDate: 'asd',
-        updatedDate: 'asd',
-    },
+    profile: getProfile(),
     setProfile: () => null,
 };
 
