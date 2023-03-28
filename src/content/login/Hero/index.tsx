@@ -41,15 +41,13 @@ function Hero() {
             },
             {
                 onSuccess: (data) => {
-                    if (data.loginDashboardAdmin.success === false) {
-                        toast.error(
-                            JSON.stringify(data.loginDashboardAdmin.message),
-                        );
+                    if (data.success === false) {
+                        toast.error(JSON.stringify(data.message));
                         return;
                     }
-                    saveProfile(data.loginDashboardAdmin.user);
+                    saveProfile(data.user);
                     setIsAuthenticated(true);
-                    setProfile(data.loginDashboardAdmin.user);
+                    setProfile(data.user);
                     navigate(path.overview);
                 },
                 onError(error: any) {

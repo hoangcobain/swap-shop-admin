@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from 'react-query';
 import { useAuthContext } from 'src/contexts/AuthContext';
+import categoryService from 'src/services/category.service';
 import userService from 'src/services/user.service';
 
 export function useGetUsers() {
@@ -30,5 +31,18 @@ export function useMeQuery() {
 export function useLogoutMutation() {
     return useMutation({
         mutationFn: userService.logout,
+    });
+}
+
+export function useCategoriesQuery() {
+    return useQuery({
+        queryKey: ['categories'],
+        queryFn: categoryService.getCategories,
+    });
+}
+
+export function useInsertCategoryMutation() {
+    return useMutation({
+        mutationFn: categoryService.insertCategory,
     });
 }

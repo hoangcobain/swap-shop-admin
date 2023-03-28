@@ -2,18 +2,34 @@ import { Helmet } from 'react-helmet-async';
 import PageHeader from 'src/content/applications/components/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
+import { useState } from 'react';
 import Footer from 'src/components/Footer';
 
 import RecentOrders from './RecentOrders';
 
-function ApplicationsTransactions() {
+function ApplicationsArticles() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return (
         <>
             <Helmet>
-                <title>Transactions - Applications</title>
+                <title>Articles - Applications</title>
             </Helmet>
             <PageTitleWrapper>
-                <PageHeader title="Transaction" />
+                <PageHeader
+                    title="Transaction"
+                    buttonName="Transaction"
+                    handleClose={handleClose}
+                    handleOpen={handleOpen}
+                    open={open}
+                    renderModal={
+                        <div>
+                            <h1>Transaction</h1>
+                        </div>
+                    }
+                />
             </PageTitleWrapper>
             <Container maxWidth="lg">
                 <Grid
@@ -33,4 +49,4 @@ function ApplicationsTransactions() {
     );
 }
 
-export default ApplicationsTransactions;
+export default ApplicationsArticles;

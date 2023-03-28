@@ -2,18 +2,29 @@ import { Helmet } from 'react-helmet-async';
 import PageHeader from 'src/content/applications/components/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
+import { useState } from 'react';
 import Footer from 'src/components/Footer';
 
 import RecentOrders from './RecentOrders';
 
 function ApplicationsUsers() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <>
             <Helmet>
                 <title>Users - Applications</title>
             </Helmet>
             <PageTitleWrapper>
-                <PageHeader title="User Management" />
+                <PageHeader
+                    title="User Management"
+                    buttonName="Create user"
+                    handleClose={handleClose}
+                    handleOpen={handleOpen}
+                    open={open}
+                    renderModal={<div>Users</div>}
+                />
             </PageTitleWrapper>
             <Container maxWidth="lg">
                 <Grid

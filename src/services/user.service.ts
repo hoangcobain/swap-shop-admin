@@ -22,11 +22,9 @@ const userService = {
         };
     }) => {
         const { loginDashboardAdmin } = await graphQLClient.request<{
-            loginDashboardAdmin: SuccessUserResponse<User>;
-        }>(loginDocument, {
-            ...body,
-        });
-        return { loginDashboardAdmin };
+            loginDashboardAdmin: SuccessUserResponse;
+        }>(loginDocument, body);
+        return loginDashboardAdmin;
     },
     me: async () => {
         const { me } = await graphQLClient.request<{

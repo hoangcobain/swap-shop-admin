@@ -64,3 +64,32 @@ export const logoutDocument = gql`
         logout
     }
 `;
+
+export const categoriesDocument = gql`
+    query Categories {
+        categories {
+            id
+            name
+            image
+            createdDate
+            updatedDate
+        }
+    }
+`;
+
+export const insertCategoryDocument = gql`
+    mutation InsertCategory($name: String!, $image: String!) {
+        insertCategory(name: $name, image: $image) {
+            message
+            success
+            code
+            category {
+                id
+                name
+                image
+                createdDate
+                updatedDate
+            }
+        }
+    }
+`;
