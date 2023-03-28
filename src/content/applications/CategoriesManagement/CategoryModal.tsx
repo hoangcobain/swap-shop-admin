@@ -3,6 +3,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import { forwardRef } from 'react';
+import { useForm } from 'react-hook-form';
+import { Category } from 'src/types/category.type';
+
+import { useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { useInsertCategoryMutation } from 'src/hooks/useRequest';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -15,18 +21,55 @@ const style = {
     p: 4,
 };
 
+export interface FormState {
+    name: string;
+    image: string;
+}
+
 interface Props {
-    handleSubmit: any;
-    handleInsertCategory: any;
-    register: any;
+    category?: Category;
 }
 
 const CategoryModal = forwardRef((props: Props, ref) => {
-    const { handleSubmit, handleInsertCategory, register } = props;
+    const { category } = props;
+    const { handleSubmit, register } = useForm<FormState>({
+        defaultValues: {
+            name: category ? category.name : '',
+            image: category ? category.image : '',
+        },
+    });
+
+    const queryClient = useQueryClient();
+    const insertCategoryMutation = useInsertCategoryMutation();
+    const handleSubmitCategory = (data: FormState) => {
+        if (!category) {
+            insertCategoryMutation.mutate(
+                {
+                    name: data.name,
+                    image: data.image,
+                },
+                {
+                    onSuccess: (data) => {
+                        if (data.success === true) {
+                            toast.success(data.message, {
+                                toastId: 'insertCategory',
+                            });
+                            queryClient.invalidateQueries({
+                                queryKey: ['categories'],
+                            });
+                        }
+                    },
+                },
+            );
+        } else {
+            console.log('update');
+        }
+    };
+
     return (
         <Box sx={style} ref={ref} tabIndex={-1}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-                Create category
+                Edit category
             </Typography>
             <Box
                 component="form"
@@ -39,7 +82,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
-                onSubmit={handleSubmit(handleInsertCategory)}
+                onSubmit={handleSubmit(handleSubmitCategory)}
             >
                 <TextField
                     id="standard-password-input"
@@ -73,7 +116,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                         type="submit"
                         fullWidth
                     >
-                        Create
+                        {category ? 'Update' : 'Create'}
                     </Button>
                 </Box>
             </Box>

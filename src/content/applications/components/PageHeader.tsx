@@ -2,24 +2,15 @@ import { Typography, Button, Grid, Modal } from '@mui/material';
 
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { useAuthContext } from 'src/contexts/AuthContext';
+import Popover from 'src/components/Popover';
 
 interface PageHeaderProps {
     title: string;
     buttonName: string;
-    renderModal?: React.ReactElement;
-    open: boolean;
-    handleOpen: () => void;
-    handleClose: () => void;
+    modal: React.ReactElement;
 }
 
-function PageHeader({
-    title,
-    buttonName,
-    renderModal,
-    handleClose,
-    handleOpen,
-    open,
-}: PageHeaderProps) {
+function PageHeader({ title, buttonName, modal }: PageHeaderProps) {
     const { profile } = useAuthContext();
 
     if (!profile) return <div>Not have profile</div>;
@@ -35,24 +26,15 @@ function PageHeader({
                 </Typography>
             </Grid>
             <Grid item>
-                <Button
-                    sx={{ mt: { xs: 2, md: 0 } }}
-                    variant="contained"
-                    startIcon={<AddTwoToneIcon fontSize="small" />}
-                    onClick={handleOpen}
-                >
-                    {buttonName}
-                </Button>
-                {renderModal && (
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
+                <Popover renderPopover={modal}>
+                    <Button
+                        sx={{ mt: { xs: 2, md: 0 } }}
+                        variant="contained"
+                        startIcon={<AddTwoToneIcon fontSize="small" />}
                     >
-                        {renderModal}
-                    </Modal>
-                )}
+                        {buttonName}
+                    </Button>
+                </Popover>
             </Grid>
         </Grid>
     );

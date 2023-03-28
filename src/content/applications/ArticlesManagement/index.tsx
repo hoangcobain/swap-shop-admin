@@ -21,14 +21,7 @@ function ApplicationsArticles() {
                 <PageHeader
                     title="Transaction"
                     buttonName="Transaction"
-                    handleClose={handleClose}
-                    handleOpen={handleOpen}
-                    open={open}
-                    renderModal={
-                        <div>
-                            <h1>Transaction</h1>
-                        </div>
-                    }
+                    modal={<div>Hello</div>}
                 />
             </PageTitleWrapper>
             <Container maxWidth="lg">

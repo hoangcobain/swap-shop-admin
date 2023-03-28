@@ -20,10 +20,7 @@ function ApplicationsUsers() {
                 <PageHeader
                     title="User Management"
                     buttonName="Create user"
-                    handleClose={handleClose}
-                    handleOpen={handleOpen}
-                    open={open}
-                    renderModal={<div>Users</div>}
+                    modal={<div>hello</div>}
                 />
             </PageTitleWrapper>
             <Container maxWidth="lg">

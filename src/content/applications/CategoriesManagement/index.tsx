@@ -1,30 +1,23 @@
+import CardMedia from '@mui/material/CardMedia';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { useCategoriesQuery } from 'src/hooks/useRequest';
 import { Category } from 'src/types/category.type';
-import CardMedia from '@mui/material/CardMedia';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import PageHeader from '../components/PageHeader';
-import CategoryModal from './CategoryModal';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
-import { useInsertCategoryMutation } from 'src/hooks/useRequest';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import { IconButton, Tooltip, useTheme } from '@mui/material';
+import CategoryModal from '../CategoriesManagement/CategoryModal';
+import Popover from 'src/components/Popover';
 
 function createData(props: Category) {
     return { ...props };
-}
-
-interface FormState {
-    name: string;
-    image: string;
 }
 
 function CategoriesManagement() {
@@ -39,40 +32,7 @@ function CategoriesManagement() {
         }),
     );
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    const { handleSubmit, register } = useForm<FormState>({
-        defaultValues: {
-            name: '',
-            image: '',
-        },
-    });
-    const queryClient = useQueryClient();
-    const insertCategoryMutation = useInsertCategoryMutation();
-
-    const handleInsertCategory = (data: FormState) => {
-        insertCategoryMutation.mutate(
-            {
-                name: data.name,
-                image: data.image,
-            },
-            {
-                onSuccess: (data) => {
-                    if (data.success === true) {
-                        toast.success(data.message, {
-                            toastId: 'insertCategory',
-                        });
-                        queryClient.invalidateQueries({
-                            queryKey: ['categories'],
-                        });
-                        handleClose();
-                    }
-                },
-            },
-        );
-    };
+    const theme = useTheme();
 
     return (
         <>
@@ -80,16 +40,7 @@ function CategoriesManagement() {
                 <PageHeader
                     title="Categories Management"
                     buttonName="Create category"
-                    renderModal={
-                        <CategoryModal
-                            handleInsertCategory={handleInsertCategory}
-                            handleSubmit={handleSubmit}
-                            register={register}
-                        />
-                    }
-                    open={open}
-                    handleOpen={handleOpen}
-                    handleClose={handleClose}
+                    modal={<CategoryModal />}
                 />
             </PageTitleWrapper>
             <TableContainer component={Paper}>
@@ -102,6 +53,7 @@ function CategoriesManagement() {
                             <TableCell>Image</TableCell>
                             <TableCell align="right">Created date</TableCell>
                             <TableCell align="right">Updated date</TableCell>
+                            <TableCell align="right">Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -138,6 +90,35 @@ function CategoriesManagement() {
                                     </TableCell>
                                     <TableCell align="right">
                                         {row.updatedDate}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Popover
+                                            renderPopover={
+                                                <CategoryModal category={row} />
+                                            }
+                                        >
+                                            <Tooltip
+                                                title="Edit Category"
+                                                arrow
+                                            >
+                                                <IconButton
+                                                    sx={{
+                                                        '&:hover': {
+                                                            background:
+                                                                theme.colors
+                                                                    .primary
+                                                                    .lighter,
+                                                        },
+                                                        color: theme.palette
+                                                            .primary.main,
+                                                    }}
+                                                    color="inherit"
+                                                    size="small"
+                                                >
+                                                    <EditTwoToneIcon fontSize="small" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Popover>
                                     </TableCell>
                                 </TableRow>
                             ))}
