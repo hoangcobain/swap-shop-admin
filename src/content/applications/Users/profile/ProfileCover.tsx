@@ -1,20 +1,19 @@
-import PropTypes from 'prop-types';
 import {
-    Box,
-    Typography,
-    Card,
-    Tooltip,
     Avatar,
-    CardMedia,
+    Box,
     Button,
+    Card,
+    CardMedia,
     IconButton,
+    Tooltip,
+    Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
 
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
-import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
 import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone';
-import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
+import { User } from 'src/types/user.type';
 
 const Input = styled('input')({
     display: 'none',
@@ -78,7 +77,7 @@ const CardCoverAction = styled(Box)(
 `,
 );
 
-const ProfileCover = ({ user }) => {
+const ProfileCover = ({ user }: { user: User }) => {
     return (
         <>
             <Box display="flex" mb={3}>
@@ -89,7 +88,7 @@ const ProfileCover = ({ user }) => {
                 </Tooltip>
                 <Box>
                     <Typography variant="h3" component="h3" gutterBottom>
-                        Profile for {user.name}
+                        Profile for {user.username}
                     </Typography>
                     <Typography variant="subtitle2">
                         This is a profile page. Easy to modify, always blazing
@@ -98,7 +97,7 @@ const ProfileCover = ({ user }) => {
                 </Box>
             </Box>
             <CardCover>
-                <CardMedia image={user.coverImg} />
+                <CardMedia image={user.avatar || ''} />
                 <CardCoverAction>
                     <Input
                         accept="image/*"
@@ -118,7 +117,11 @@ const ProfileCover = ({ user }) => {
                 </CardCoverAction>
             </CardCover>
             <AvatarWrapper>
-                <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+                <Avatar
+                    variant="rounded"
+                    alt={user.username}
+                    src={user.avatar}
+                />
                 <ButtonUploadWrapper>
                     <Input
                         accept="image/*"
@@ -135,42 +138,8 @@ const ProfileCover = ({ user }) => {
             </AvatarWrapper>
             <Box py={2} pl={2} mb={3}>
                 <Typography gutterBottom variant="h4">
-                    {user.name}
+                    {user.fullName}
                 </Typography>
-                <Typography variant="subtitle2">{user.description}</Typography>
-                <Typography
-                    sx={{ py: 2 }}
-                    variant="subtitle2"
-                    color="text.primary"
-                >
-                    {user.jobtitle} | {user.location} | {user.followers}{' '}
-                    followers
-                </Typography>
-                <Box
-                    display={{ xs: 'block', md: 'flex' }}
-                    alignItems="center"
-                    justifyContent="space-between"
-                >
-                    <Box>
-                        <Button size="small" variant="contained">
-                            Follow
-                        </Button>
-                        <Button size="small" sx={{ mx: 1 }} variant="outlined">
-                            View website
-                        </Button>
-                        <IconButton color="primary" sx={{ p: 0.5 }}>
-                            <MoreHorizTwoToneIcon />
-                        </IconButton>
-                    </Box>
-                    <Button
-                        sx={{ mt: { xs: 2, md: 0 } }}
-                        size="small"
-                        variant="text"
-                        endIcon={<ArrowForwardTwoToneIcon />}
-                    >
-                        See all {user.followers} connections
-                    </Button>
-                </Box>
             </Box>
         </>
     );

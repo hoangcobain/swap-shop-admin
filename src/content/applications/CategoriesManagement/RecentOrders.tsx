@@ -1,13 +1,13 @@
 import { Card } from '@mui/material';
-import { useArticlesQuery } from 'src/hooks/useRequest';
+import { useCategoriesQuery } from 'src/hooks/useRequest';
 import RecentOrdersTable from './RecentOrdersTable';
 
 function RecentOrders() {
-    const { data: articles } = useArticlesQuery();
+    const { data: categories } = useCategoriesQuery();
 
     return (
         <Card>
-            {articles && <RecentOrdersTable articles={articles.articles} />}
+            {categories && <RecentOrdersTable categories={categories} />}
         </Card>
     );
 }

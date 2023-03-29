@@ -2,15 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import PageHeader from 'src/content/applications/components/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
-import { useState } from 'react';
 import Footer from 'src/components/Footer';
 
 import RecentOrders from './RecentOrders';
 
 function ApplicationsUsers() {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
     return (
         <>
             <Helmet>

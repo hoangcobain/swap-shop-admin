@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { LoadingButton } from '@mui/lab';
 
 import { forwardRef } from 'react';
 import { useForm } from 'react-hook-form';
@@ -8,7 +9,10 @@ import { Category } from 'src/types/category.type';
 
 import { useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { useInsertCategoryMutation } from 'src/hooks/useRequest';
+import {
+    useInsertCategoryMutation,
+    useUpdateCategoryMutation,
+} from 'src/hooks/useRequest';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -41,6 +45,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
 
     const queryClient = useQueryClient();
     const insertCategoryMutation = useInsertCategoryMutation();
+    const updateCategoryMutation = useUpdateCategoryMutation();
     const handleSubmitCategory = (data: FormState) => {
         if (!category) {
             insertCategoryMutation.mutate(
@@ -62,7 +67,27 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                 },
             );
         } else {
-            console.log('update');
+            updateCategoryMutation.mutate(
+                {
+                    updateCategoryInput: {
+                        id: category.id,
+                        name: data.name,
+                        image: data.image,
+                    },
+                },
+                {
+                    onSuccess: (data) => {
+                        if (data.success === true) {
+                            toast.success(data.message, {
+                                toastId: 'updatedCategory',
+                            });
+                            queryClient.invalidateQueries({
+                                queryKey: ['categories'],
+                            });
+                        }
+                    },
+                },
+            );
         }
     };
 
@@ -110,14 +135,21 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                         width: '40ch',
                     }}
                 >
-                    <Button
-                        size="large"
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                    >
-                        {category ? 'Update' : 'Create'}
-                    </Button>
+                    {insertCategoryMutation.isLoading ||
+                    updateCategoryMutation.isLoading ? (
+                        <LoadingButton>
+                            {category ? 'Updating...' : 'Creating...'}
+                        </LoadingButton>
+                    ) : (
+                        <Button
+                            size="large"
+                            variant="contained"
+                            type="submit"
+                            fullWidth
+                        >
+                            {category ? 'Update' : 'Create'}
+                        </Button>
+                    )}
                 </Box>
             </Box>
         </Box>
