@@ -62,8 +62,6 @@ const UserBoxDescription = styled(Typography)(
 function HeaderUserBox() {
     const { profile, setProfile, setIsAuthenticated } = useAuthContext();
 
-    console.log(profile);
-
     const ref = useRef<any>(null);
     const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -96,7 +94,7 @@ function HeaderUserBox() {
                     alt={profile.username}
                     src={
                         profile.avatar ||
-                        'https://www.google.com.vn/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fb%2Fb6%2FImage_created_with_a_mobile_phone.png%2F640px-Image_created_with_a_mobile_phone.png&tbnid=JoR7JNzGko0S6M&vet=12ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ..i&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FImage&docid=0JWe7yDOKrVFAM&w=640&h=480&q=image&ved=2ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ'
+                        'https://plus.unsplash.com/premium_photo-1661964217492-70800dc09cac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
                     }
                 />
                 <Hidden mdDown>

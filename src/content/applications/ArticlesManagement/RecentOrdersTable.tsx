@@ -201,9 +201,9 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
                                     onChange={handleSelectAllCryptoOrders}
                                 />
                             </TableCell>
-                            <TableCell>Order Details</TableCell>
-                            <TableCell>Order ID</TableCell>
-                            <TableCell>Source</TableCell>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Title</TableCell>
+                            <TableCell>Description</TableCell>
                             <TableCell align="right">Amount</TableCell>
                             <TableCell align="right">Status</TableCell>
                             <TableCell align="right">Actions</TableCell>
@@ -282,7 +282,12 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
                                         </Typography>
                                     </TableCell>
 
-                                    <TableCell align="right">
+                                    <TableCell align="center">
+                                        {article.price ? article.price : 'Free'}
+                                    </TableCell>
+                                    <TableCell align="center">status</TableCell>
+
+                                    <TableCell align="center">
                                         <Tooltip title="Edit Order" arrow>
                                             <IconButton
                                                 sx={{

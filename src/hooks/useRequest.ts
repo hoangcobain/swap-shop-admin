@@ -59,6 +59,6 @@ export function useArticlesQuery() {
     const queryConfig = useQueryConfig();
     return useQuery({
         queryKey: ['articles', queryConfig],
-        queryFn: () => articleService.getArticles({ queryConfig }),
+        queryFn: () => articleService.getArticles(queryConfig),
     });
 }
