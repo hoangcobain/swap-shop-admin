@@ -7,7 +7,9 @@ function RecentOrders() {
 
     return (
         <Card>
-            {articles && <RecentOrdersTable articles={articles.articles} />}
+            {articles && (
+                <RecentOrdersTable articles={articles.data.articles} />
+            )}
         </Card>
     );
 }

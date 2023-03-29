@@ -6,16 +6,21 @@ export type SuccessResponse<T, K extends string = 'data'> = {
     code: number;
 };
 
-export type SuccessResponsePagination<T, K extends string = 'data'> = {
-    [key in K]: T;
-} & {
-    message: string;
-};
-
 export type Pagination = {
     page: number;
     limit: number;
     page_size: number;
+};
+
+export type DataPagination<T, K extends string = 'data'> = {
+    [key in K]: T;
+} & {
+    pagination: Pagination;
+};
+
+export type SuccessResponsePagination<T, K extends string = 'data'> = {
+    data: DataPagination<T, K>;
+    message: string;
 };
 
 export type QueryConfig = {
