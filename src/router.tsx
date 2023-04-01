@@ -26,12 +26,16 @@ const Overview = Loader(lazy(() => import('src/content/dashboards/Overview')));
 
 // Applications
 
-const Transactions = Loader(
-    lazy(() => import('src/content/applications/Transactions')),
+const ArticlesManagement = Loader(
+    lazy(() => import('src/content/applications/ArticlesManagement')),
 );
 
-const UserManagement = Loader(
+const UsersManagement = Loader(
     lazy(() => import('src/content/applications/UsersManagement')),
+);
+
+const CategoriesManagement = Loader(
+    lazy(() => import('src/content/applications/CategoriesManagement')),
 );
 
 const UserSettings = Loader(
@@ -97,15 +101,15 @@ const routes: RouteObject[] = [
                     },
                     {
                         path: 'articles',
-                        element: <Transactions />,
+                        element: <ArticlesManagement />,
                     },
                     {
                         path: 'users',
-                        element: <UserManagement />,
+                        element: <UsersManagement />,
                     },
                     {
                         path: 'categories',
-                        element: <Transactions />,
+                        element: <CategoriesManagement />,
                     },
                     {
                         path: 'profile',

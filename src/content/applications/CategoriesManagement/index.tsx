@@ -1,22 +1,19 @@
-import { Helmet } from 'react-helmet-async';
-import PageHeader from 'src/content/applications/components/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import { Grid, Container } from '@mui/material';
+import PageHeader from '../components/PageHeader';
+
+import CategoryModal from '../CategoriesManagement/CategoryModal';
+import RecentOrders from './RecentOrders';
+import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
 
-import RecentOrders from './RecentOrders';
-
-function ApplicationsUsers() {
+function CategoriesManagement() {
     return (
         <>
-            <Helmet>
-                <title>Users - Applications</title>
-            </Helmet>
             <PageTitleWrapper>
                 <PageHeader
-                    title="User Management"
-                    buttonName="Create user"
-                    modal={<div>hello</div>}
+                    title="Categories Management"
+                    buttonName="Create category"
+                    modal={<CategoryModal />}
                 />
             </PageTitleWrapper>
             <Container maxWidth="lg">
@@ -37,4 +34,4 @@ function ApplicationsUsers() {
     );
 }
 
-export default ApplicationsUsers;
+export default CategoriesManagement;

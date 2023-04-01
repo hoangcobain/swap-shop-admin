@@ -16,15 +16,13 @@ import {
     Typography,
 } from '@mui/material';
 
-import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
-import { styled } from '@mui/material/styles';
-import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
-import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
-import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
-import { useLogoutMutaion, useMeQuery } from 'src/hooks/useRequest';
-import { path } from 'src/constants/path';
+import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
+import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
+import { styled } from '@mui/material/styles';
 import { useAuthContext } from 'src/contexts/AuthContext';
+import { useLogoutMutation } from 'src/hooks/useRequest';
+import { clearLocalStorage } from 'src/utils/util';
 
 const UserBoxButton = styled(Button)(
     ({ theme }) => `
@@ -61,29 +59,30 @@ const UserBoxDescription = styled(Typography)(
 `,
 );
 
-function HeaderUserbox() {
+function HeaderUserBox() {
     const { profile, setProfile, setIsAuthenticated } = useAuthContext();
 
     const ref = useRef<any>(null);
     const [isOpen, setOpen] = useState<boolean>(false);
 
-    const logoutMutation = useLogoutMutaion();
+    const logoutMutation = useLogoutMutation();
 
-    const handleOpen = (): void => {
+    const handleOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = (): void => {
+    const handleClose = () => {
         setOpen(false);
     };
 
-    const handleLogOut = (): void => {
+    const handleLogOut = () => {
         logoutMutation.mutate();
         setProfile(null);
         setIsAuthenticated(false);
+        clearLocalStorage();
     };
 
-    if (!Boolean(profile)) {
+    if (!profile) {
         return <div>Not have profile</div>;
     }
 
@@ -95,7 +94,7 @@ function HeaderUserbox() {
                     alt={profile.username}
                     src={
                         profile.avatar ||
-                        'https://www.google.com.vn/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fb%2Fb6%2FImage_created_with_a_mobile_phone.png%2F640px-Image_created_with_a_mobile_phone.png&tbnid=JoR7JNzGko0S6M&vet=12ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ..i&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FImage&docid=0JWe7yDOKrVFAM&w=640&h=480&q=image&ved=2ahUKEwij1oubwfz9AhXCtVYBHW0iD5gQMygAegUIARDCAQ'
+                        'https://plus.unsplash.com/premium_photo-1661964217492-70800dc09cac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
                     }
                 />
                 <Hidden mdDown>
@@ -171,4 +170,4 @@ function HeaderUserbox() {
     );
 }
 
-export default HeaderUserbox;
+export default HeaderUserBox;

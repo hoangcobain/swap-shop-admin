@@ -11,7 +11,7 @@ import {
 const userService = {
     getUsers: async () => {
         const { getAllUser } = await graphQLClient.request<{
-            getAllUser: User[];
+            getAllUser: User[] | null;
         }>(getUsersDocument);
         return getAllUser;
     },
@@ -21,16 +21,14 @@ const userService = {
             password: string;
         };
     }) => {
-        const { login } = await graphQLClient.request<{
-            login: SuccessResponse<User>;
-        }>(loginDocument, {
-            ...body,
-        });
-        return { login };
+        const { loginDashboardAdmin } = await graphQLClient.request<{
+            loginDashboardAdmin: SuccessResponse<User, 'user'>;
+        }>(loginDocument, body);
+        return loginDashboardAdmin;
     },
     me: async () => {
         const { me } = await graphQLClient.request<{
-            me: User;
+            me: User | null;
         }>(meDocument);
         return me;
     },

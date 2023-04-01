@@ -1,6 +1,9 @@
 import { useQuery, useMutation } from 'react-query';
 import { useAuthContext } from 'src/contexts/AuthContext';
+import articleService from 'src/services/article.service';
+import categoryService from 'src/services/category.service';
 import userService from 'src/services/user.service';
+import useQueryConfig from './useQueryConfig';
 
 export function useGetUsers() {
     return useQuery({
@@ -27,8 +30,35 @@ export function useMeQuery() {
     });
 }
 
-export function useLogoutMutaion() {
+export function useLogoutMutation() {
     return useMutation({
         mutationFn: userService.logout,
+    });
+}
+
+export function useCategoriesQuery() {
+    return useQuery({
+        queryKey: ['categories'],
+        queryFn: categoryService.getCategories,
+    });
+}
+
+export function useInsertCategoryMutation() {
+    return useMutation({
+        mutationFn: categoryService.insertCategory,
+    });
+}
+
+export function useUpdateCategoryMutation() {
+    return useMutation({
+        mutationFn: categoryService.updateCategory,
+    });
+}
+
+export function useArticlesQuery() {
+    const queryConfig = useQueryConfig();
+    return useQuery({
+        queryKey: ['articles', queryConfig],
+        queryFn: () => articleService.getArticles(queryConfig),
     });
 }

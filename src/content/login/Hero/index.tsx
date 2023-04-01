@@ -9,6 +9,7 @@ import { useLoginMutation } from 'src/hooks/useRequest';
 import { path } from 'src/constants/path';
 import { toast } from 'react-toastify';
 import { useAuthContext } from 'src/contexts/AuthContext';
+import { saveProfile } from 'src/utils/util';
 
 const TypographyH1 = styled(Typography)(
     ({ theme }) => `
@@ -40,12 +41,13 @@ function Hero() {
             },
             {
                 onSuccess: (data) => {
-                    if (data.login.success === false) {
-                        toast.error(JSON.stringify(data.login.message));
+                    if (data.success === false) {
+                        toast.error(JSON.stringify(data.message));
                         return;
                     }
+                    saveProfile(data.user);
                     setIsAuthenticated(true);
-                    setProfile(data.login.data);
+                    setProfile(data.user);
                     navigate(path.overview);
                 },
                 onError(error: any) {
