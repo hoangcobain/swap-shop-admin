@@ -1,19 +1,23 @@
 import { Helmet } from 'react-helmet-async';
-import PageHeader from './PageHeader';
+import PageHeader from 'src/content/applications/components/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
 import Footer from 'src/components/Footer';
 
 import RecentOrders from './RecentOrders';
 
-function ApplicationsTransactions() {
+function ApplicationsUsers() {
     return (
         <>
             <Helmet>
-                <title>Transactions - Applications</title>
+                <title>Users - Applications</title>
             </Helmet>
             <PageTitleWrapper>
-                <PageHeader />
+                <PageHeader
+                    title="User Management"
+                    buttonName="Create user"
+                    modal={<div>hello</div>}
+                />
             </PageTitleWrapper>
             <Container maxWidth="lg">
                 <Grid
@@ -33,4 +37,4 @@ function ApplicationsTransactions() {
     );
 }
 
-export default ApplicationsTransactions;
+export default ApplicationsUsers;

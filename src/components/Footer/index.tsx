@@ -18,8 +18,7 @@ function Footer() {
             >
                 <Box>
                     <Typography variant="subtitle1">
-                        &copy; 2022 - Tokyo Free White React Typescript Admin
-                        Dashboard
+                        &copy; 2023 - Swap Shop Admin Dashboard
                     </Typography>
                 </Box>
                 <Typography
@@ -34,7 +33,7 @@ function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        BloomUI.com
+                        Hoàng & Quân
                     </Link>
                 </Typography>
             </Box>

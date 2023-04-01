@@ -82,7 +82,7 @@ function StatusComingSoon() {
         }, 1000);
     });
 
-    const timerComponents = [];
+    const timerComponents: React.ReactNode[] = [];
 
     Object.keys(timeLeft).forEach((interval) => {
         if (!timeLeft[interval]) {
