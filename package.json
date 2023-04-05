@@ -1,11 +1,11 @@
 {
-    "name": "tokyo-free-white-react-admin-dashboard",
+    "name": "react-admin-dashboard",
     "version": "2.0.0",
-    "title": "Tokyo Free White React Typescript Admin Dashboard",
+    "title": "React Typescript Admin Dashboard",
     "description": "Admin dashboard for swapshop second chance using template from material ui",
     "author": {
-        "name": "BloomUI.com",
-        "url": "https://bloomui.com"
+        "name": "mhxx307",
+        "url": "https://github.com/mhxx307"
     },
     "private": false,
     "dependencies": {
@@ -20,6 +20,7 @@
         "apexcharts": "3.35.3",
         "clsx": "1.1.1",
         "date-fns": "2.28.0",
+        "dompurify": "^3.0.1",
         "graphql": "^16.6.0",
         "graphql-request": "^5.2.0",
         "history": "5.3.0",
@@ -64,6 +65,7 @@
         ]
     },
     "devDependencies": {
+        "@types/dompurify": "^3.0.1",
         "@types/lodash": "^4.14.191",
         "@typescript-eslint/eslint-plugin": "5.27.0",
         "@typescript-eslint/parser": "5.27.0",

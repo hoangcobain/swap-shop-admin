@@ -143,6 +143,7 @@ export const articlesDocument = gql`
                         createdDate
                         updatedDate
                     }
+                    status
                     createdDate
                     updatedDate
                 }
