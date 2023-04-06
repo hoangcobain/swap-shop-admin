@@ -1,39 +1,37 @@
-import { FC, ChangeEvent, useState } from 'react';
-import { format } from 'date-fns';
-import numeral from 'numeral';
-import PropTypes from 'prop-types';
 import {
-    Tooltip,
-    Divider,
     Box,
-    FormControl,
-    InputLabel,
     Card,
+    CardHeader,
     Checkbox,
+    Divider,
+    FormControl,
     IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
     Table,
     TableBody,
     TableCell,
+    TableContainer,
     TableHead,
     TablePagination,
     TableRow,
-    TableContainer,
-    Select,
-    MenuItem,
+    Tooltip,
     Typography,
     useTheme,
-    CardHeader,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+import { ChangeEvent, FC, useState } from 'react';
 
-import Label from 'src/components/Label';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import BulkActions from '../components/BulkActions';
-import { Article, ArticleStatus } from 'src/types/article.type';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DOMPurify from 'dompurify';
-import { STATUS_ARTICLE } from 'src/constants/article';
+import Label from 'src/components/Label';
 import Popover from 'src/components/Popover';
+import { Article } from 'src/types/article.type';
+import BulkActions from '../components/BulkActions';
 import ArticleModal from './ArticleModal';
+import { STATUS_ARTICLE } from 'src/constants/article';
 
 interface RecentOrdersTableProps {
     className?: string;
@@ -46,16 +44,20 @@ interface Filters {
 
 const getStatusLabel = (ArticleStatus: any): JSX.Element => {
     const map = {
-        error: {
-            text: 'Error',
+        rejected: {
+            text: 'Rejected',
             color: 'error',
         },
-        active: {
+        approved: {
             text: 'Active',
             color: 'success',
         },
-        inactive: {
+        blocked: {
             text: 'Inactive',
+            color: 'warning',
+        },
+        pending: {
+            text: 'Pending',
             color: 'warning',
         },
     };

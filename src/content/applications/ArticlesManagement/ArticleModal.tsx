@@ -10,6 +10,7 @@ import { useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useCategoriesQuery } from 'src/hooks/useRequest';
 import { Article } from 'src/types/article.type';
+import { STATUS_ARTICLE, STATUS_ARTICLE_INPUT } from 'src/constants/article';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -76,6 +77,7 @@ const ArticleModal = forwardRef((props: Props, ref) => {
                     type="text"
                     variant="standard"
                     fullWidth
+                    disabled
                     {...register('title')}
                 />
                 <TextField
@@ -83,6 +85,7 @@ const ArticleModal = forwardRef((props: Props, ref) => {
                     type="text"
                     variant="standard"
                     fullWidth
+                    disabled
                     {...register('description')}
                 />
                 <TextField
@@ -90,14 +93,27 @@ const ArticleModal = forwardRef((props: Props, ref) => {
                     type="text"
                     variant="standard"
                     fullWidth
+                    disabled
                     {...register('price')}
                 />
-                <TextField
-                    label="Status"
-                    type="text"
-                    variant="standard"
-                    fullWidth
-                    {...register('status')}
+                <Autocomplete
+                    disablePortal
+                    options={STATUS_ARTICLE_INPUT}
+                    defaultValue={
+                        article.status === STATUS_ARTICLE_INPUT[1].label
+                            ? STATUS_ARTICLE_INPUT[1]
+                            : article.status === STATUS_ARTICLE_INPUT[3].label
+                            ? STATUS_ARTICLE_INPUT[3]
+                            : STATUS_ARTICLE_INPUT[2]
+                    }
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Status"
+                            variant="standard"
+                            fullWidth
+                        />
+                    )}
                 />
                 <Autocomplete
                     disablePortal
