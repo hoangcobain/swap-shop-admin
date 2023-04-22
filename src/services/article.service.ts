@@ -1,7 +1,14 @@
-import { articlesDocument } from 'src/graphql/document';
+import {
+    articlesDocument,
+    changeStatusArticleDocument,
+} from 'src/graphql/document';
 import graphQLClient from 'src/libs/graphqlClient';
 import { Article } from 'src/types/article.type';
-import { QueryConfig, SuccessResponsePagination } from 'src/types/util.type';
+import {
+    QueryConfig,
+    SuccessResponse,
+    SuccessResponsePagination,
+} from 'src/types/util.type';
 
 const articleService = {
     getArticles: async (queryConfig: QueryConfig) => {
@@ -11,6 +18,15 @@ const articleService = {
             queryConfig,
         });
         return articles;
+    },
+    changeStatusArticle: async (body: {
+        status: string;
+        articleId: string;
+    }) => {
+        const { changeStatusArticle } = await graphQLClient.request<{
+            changeStatusArticle: SuccessResponse<Article, 'article'>;
+        }>(changeStatusArticleDocument, body);
+        return changeStatusArticle;
     },
 };
 

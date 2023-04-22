@@ -4,6 +4,7 @@ import articleService from 'src/services/article.service';
 import categoryService from 'src/services/category.service';
 import userService from 'src/services/user.service';
 import useQueryConfig from './useQueryConfig';
+import notificationService from 'src/services/notification.service';
 
 export function useGetUsers() {
     return useQuery({
@@ -36,6 +37,12 @@ export function useLogoutMutation() {
     });
 }
 
+export function useUpdateStatusUserMutation() {
+    return useMutation({
+        mutationFn: userService.changeStatusUser,
+    });
+}
+
 export function useCategoriesQuery() {
     return useQuery({
         queryKey: ['categories'],
@@ -60,5 +67,23 @@ export function useArticlesQuery() {
     return useQuery({
         queryKey: ['articles', queryConfig],
         queryFn: () => articleService.getArticles(queryConfig),
+    });
+}
+
+export function useUpdateStatusArticleMutation() {
+    return useMutation({
+        mutationFn: articleService.changeStatusArticle,
+    });
+}
+
+export function usePushNotificationMutation() {
+    return useMutation({
+        mutationFn: notificationService.pushNotification,
+    });
+}
+
+export function usePushPrivateNotificationMutation() {
+    return useMutation({
+        mutationFn: notificationService.pushPrivateNotification,
     });
 }

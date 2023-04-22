@@ -49,11 +49,11 @@ const getStatusLabel = (ArticleStatus: any): JSX.Element => {
             color: 'error',
         },
         approved: {
-            text: 'Active',
+            text: 'Approved',
             color: 'success',
         },
         blocked: {
-            text: 'Inactive',
+            text: 'Blocked',
             color: 'warning',
         },
         pending: {
@@ -156,7 +156,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
     const selectedAllArticles = selectedArticles.length === articles.length;
     const theme = useTheme();
 
-    console.log(selectedArticles);
+    console.log(paginatedArticles);
 
     return (
         <Card>

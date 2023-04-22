@@ -6,6 +6,7 @@ import {
     loginDocument,
     meDocument,
     logoutDocument,
+    changeStatusUserDocument,
 } from 'src/graphql/document';
 
 const userService = {
@@ -35,6 +36,12 @@ const userService = {
     logout: async () => {
         const logout = await graphQLClient.request<Boolean>(logoutDocument);
         return logout;
+    },
+    changeStatusUser: async (body: { status: string; userId: string }) => {
+        const { changeStatusUser } = await graphQLClient.request<{
+            changeStatusUser: SuccessResponse<User, 'article'>;
+        }>(changeStatusUserDocument, body);
+        return changeStatusUser;
     },
 };
 

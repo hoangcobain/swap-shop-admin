@@ -1,3 +1,5 @@
+import { UserRole } from './user_role.type';
+
 export interface User {
     id: string;
     username: string;
@@ -7,7 +9,8 @@ export interface User {
     fullName: string;
     birthday: any;
     avatar: string;
-    rating: number;
+    roles: UserRole[];
+    status: string;
     createdDate: string;
     updatedDate: string;
 }

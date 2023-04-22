@@ -1,9 +1,14 @@
 import {
     Box,
     Card,
+    CardHeader,
     Checkbox,
     Divider,
+    FormControl,
     IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
     Table,
     TableBody,
     TableCell,
@@ -29,10 +34,18 @@ import {
     TableCellBaseProps,
     TableCellProps,
 } from '@mui/material/TableCell/TableCell';
+import { Label } from '@mui/icons-material';
+import { STATUS_USER } from 'src/constants/user';
+import UserModal from './UserModal';
+import Popover from 'src/components/Popover';
 
 interface RecentOrdersTableProps {
     className?: string;
     users: User[];
+}
+
+interface Filters {
+    status: any;
 }
 
 const applyPagination = (
@@ -43,17 +56,36 @@ const applyPagination = (
     return users.slice(page * limit, page * limit + limit);
 };
 
+const applyFilters = (users: User[], filters: Filters): any[] => {
+    return users.filter((user) => {
+        let matches = true;
+
+        if (
+            filters.status &&
+            user.status.toLowerCase() !== filters.status.toLowerCase()
+        ) {
+            matches = false;
+        }
+
+        return matches;
+    });
+};
+
 const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
     const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
     const selectedBulkActions = selectedUsers.length > 0;
     const [page, setPage] = useState<number>(0);
     const [limit, setLimit] = useState<number>(5);
 
-    const paginationUsers = applyPagination(users, page, limit);
     const selectedSomeUsers =
         selectedUsers.length > 0 && selectedUsers.length < users.length;
     const selectedAllCryptoOrders = selectedUsers.length === users.length;
+    const [filters, setFilters] = useState<Filters>({
+        status: null,
+    });
 
+    const filteredUsers = applyFilters(users, filters);
+    const paginationUsers = applyPagination(filteredUsers, page, limit);
     const theme = useTheme();
 
     const options: Omit<TypographyProps, 'children'> = {
@@ -69,9 +101,48 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
         color: '#333',
     };
 
+    const getStatusLabel = (UserStatus: any): JSX.Element => {
+        const map = {
+            active: {
+                text: 'Active',
+                color: 'success',
+            },
+            inactive: {
+                text: 'Inactive',
+                color: 'warning',
+            },
+            blocked: {
+                text: 'Blocked',
+                color: 'error',
+            },
+        };
+
+        const { text, color }: any = map[UserStatus];
+
+        return <Label color={color}>{text}</Label>;
+    };
+
+    const statusOptions = Object.keys(STATUS_USER).map((status) => ({
+        id: status,
+        name: status,
+    }));
+
     const tableRows = Object.keys(
         omit(users[0], ['birthday', 'avatar', 'rating']),
     );
+
+    const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        let value: string | null = null;
+
+        if (e.target.value !== 'all') {
+            value = e.target.value;
+        }
+
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            status: value,
+        }));
+    };
 
     const handlePageChange = (event: any, newPage: number): void => {
         setPage(newPage);
@@ -104,7 +175,33 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
                     <BulkActions />
                 </Box>
             )}
-
+            {!selectedBulkActions && (
+                <CardHeader
+                    action={
+                        <Box width={150}>
+                            <FormControl fullWidth variant="outlined">
+                                <InputLabel>Status</InputLabel>
+                                <Select
+                                    value={filters.status || 'all'}
+                                    onChange={handleStatusChange}
+                                    label="Status"
+                                    autoWidth
+                                >
+                                    {statusOptions.map((statusOption) => (
+                                        <MenuItem
+                                            key={statusOption.id}
+                                            value={statusOption.id}
+                                        >
+                                            {statusOption.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    }
+                    title="Recent Orders"
+                />
+            )}
             <Divider />
             <TableContainer>
                 <Table>
@@ -123,9 +220,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
                                     {item}
                                 </TableCell>
                             ))}
-                            <TableCell align="right" sx={optionsHeaderRow}>
-                                Status
-                            </TableCell>
                             <TableCell align="right" sx={optionsHeaderRow}>
                                 Actions
                             </TableCell>
@@ -184,6 +278,22 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
                                     </TableCell>
                                     <TableCell>
                                         <Typography {...options}>
+                                            {user.roles.reduce(
+                                                (value, current) => {
+                                                    value +=
+                                                        current.role.name +
+                                                        ', ';
+                                                    return value;
+                                                },
+                                                '',
+                                            )}
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        {getStatusLabel(user.status)}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography {...options}>
                                             {format(
                                                 parseInt(user.createdDate),
                                                 'dd/MM/yyyy hh:mm',
@@ -199,43 +309,30 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
                                         </Typography>
                                     </TableCell>
                                     <TableCell align="center">
-                                        {user.rating}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <Tooltip title="Edit Order" arrow>
-                                            <IconButton
-                                                sx={{
-                                                    '&:hover': {
-                                                        background:
-                                                            theme.colors.primary
-                                                                .lighter,
-                                                    },
-                                                    color: theme.palette.primary
-                                                        .main,
-                                                }}
-                                                color="inherit"
-                                                size="small"
-                                            >
-                                                <EditTwoToneIcon fontSize="small" />
-                                            </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title="Delete Order" arrow>
-                                            <IconButton
-                                                sx={{
-                                                    '&:hover': {
-                                                        background:
-                                                            theme.colors.error
-                                                                .lighter,
-                                                    },
-                                                    color: theme.palette.error
-                                                        .main,
-                                                }}
-                                                color="inherit"
-                                                size="small"
-                                            >
-                                                <DeleteTwoToneIcon fontSize="small" />
-                                            </IconButton>
-                                        </Tooltip>
+                                        <Popover
+                                            renderPopover={
+                                                <UserModal user={user} />
+                                            }
+                                        >
+                                            <Tooltip title="Edit User" arrow>
+                                                <IconButton
+                                                    sx={{
+                                                        '&:hover': {
+                                                            background:
+                                                                theme.colors
+                                                                    .primary
+                                                                    .lighter,
+                                                        },
+                                                        color: theme.palette
+                                                            .primary.main,
+                                                    }}
+                                                    color="inherit"
+                                                    size="small"
+                                                >
+                                                    <EditTwoToneIcon fontSize="small" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Popover>
                                     </TableCell>
                                 </TableRow>
                             );
@@ -246,7 +343,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
             <Box p={2}>
                 <TablePagination
                     component="div"
-                    count={paginationUsers.length}
+                    count={filteredUsers.length}
                     onPageChange={handlePageChange}
                     onRowsPerPageChange={handleLimitChange}
                     page={page}
