@@ -2,6 +2,7 @@ import { Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { LoadingButton } from '@mui/lab';
+import { useEffect } from 'react';
 
 import { forwardRef } from 'react';
 import { useForm } from 'react-hook-form';
@@ -36,16 +37,24 @@ interface Props {
 
 const CategoryModal = forwardRef((props: Props, ref) => {
     const { category } = props;
-    const { handleSubmit, register } = useForm<FormState>({
+    const { handleSubmit, register, setValue } = useForm<FormState>({
         defaultValues: {
-            name: category ? category.name : '',
-            image: category ? category.image : '',
+            name: '',
+            image: '',
         },
     });
 
     const queryClient = useQueryClient();
     const insertCategoryMutation = useInsertCategoryMutation();
     const updateCategoryMutation = useUpdateCategoryMutation();
+
+    useEffect(() => {
+        if (category) {
+            setValue('name', category.name);
+            setValue('image', category.image);
+        }
+    }, [category]);
+
     const handleSubmitCategory = (data: FormState) => {
         if (!category) {
             insertCategoryMutation.mutate(
@@ -56,7 +65,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                 {
                     onSuccess: (data) => {
                         if (data.success === true) {
-                            toast.success(data.message, {
+                            toast.success('Thêm loại thành công!', {
                                 toastId: 'insertCategory',
                             });
                             queryClient.invalidateQueries({
@@ -78,7 +87,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                 {
                     onSuccess: (data) => {
                         if (data.success === true) {
-                            toast.success(data.message, {
+                            toast.success('Cập nhật loại thành công!', {
                                 toastId: 'updatedCategory',
                             });
                             queryClient.invalidateQueries({
@@ -94,7 +103,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
     return (
         <Box sx={style} ref={ref} tabIndex={-1}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-                Edit category
+                Diều chỉnh loại sản phẩm:
             </Typography>
             <Box
                 component="form"
@@ -111,7 +120,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
             >
                 <TextField
                     id="standard-password-input"
-                    label="Category name"
+                    label="Tên loại"
                     type="text"
                     autoComplete="current-password"
                     variant="standard"
@@ -120,7 +129,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                 />
                 <TextField
                     id="standard-password-input"
-                    label="Image"
+                    label="Hình ảnh"
                     type="text"
                     autoComplete="current-password"
                     variant="standard"
@@ -138,7 +147,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                     {insertCategoryMutation.isLoading ||
                     updateCategoryMutation.isLoading ? (
                         <LoadingButton>
-                            {category ? 'Updating...' : 'Creating...'}
+                            {category ? 'Đang cập nhật...' : 'Đang tạo...'}
                         </LoadingButton>
                     ) : (
                         <Button
@@ -147,7 +156,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
                             type="submit"
                             fullWidth
                         >
-                            {category ? 'Update' : 'Create'}
+                            {category ? 'Cập nhật' : 'Tạo'}
                         </Button>
                     )}
                 </Box>

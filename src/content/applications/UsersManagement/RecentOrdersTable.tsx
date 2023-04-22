@@ -207,14 +207,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell padding="checkbox">
-                                <Checkbox
-                                    color="primary"
-                                    checked={selectedAllCryptoOrders}
-                                    indeterminate={selectedSomeUsers}
-                                    onChange={handleSelectAllUsers}
-                                />
-                            </TableCell>
                             {tableRows.map((item) => (
                                 <TableCell key={item} sx={optionsHeaderRow}>
                                     {item}
@@ -227,25 +219,8 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
                     </TableHead>
                     <TableBody>
                         {paginationUsers.map((user) => {
-                            const isUsersSelected = selectedUsers.includes(
-                                user.id,
-                            );
                             return (
-                                <TableRow
-                                    hover
-                                    key={user.id}
-                                    selected={isUsersSelected}
-                                >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            color="primary"
-                                            checked={isUsersSelected}
-                                            onChange={handleSelectOneUsers(
-                                                user.id,
-                                            )}
-                                            value={isUsersSelected}
-                                        />
-                                    </TableCell>
+                                <TableRow hover key={user.id}>
                                     <TableCell>
                                         <Typography variant="body2" noWrap>
                                             {user.id}

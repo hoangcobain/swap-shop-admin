@@ -2,18 +2,23 @@ import { Helmet } from 'react-helmet-async';
 import PageHeader from 'src/content/applications/components/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
+
 import Footer from 'src/components/Footer';
-
 import RecentOrders from './RecentOrders';
+import NotificationModal from './NotificationModal';
 
-function ApplicationsUsers() {
+function ApplicationsArticles() {
     return (
         <>
             <Helmet>
-                <title>Users - Applications</title>
+                <title>Thông báo - Applications</title>
             </Helmet>
             <PageTitleWrapper>
-                <PageHeader title="Quản lý người dùng" />
+                <PageHeader
+                    title="Quản lý thông báo"
+                    buttonName="Thông báo"
+                    modal={<NotificationModal />}
+                />
             </PageTitleWrapper>
             <Container maxWidth="lg">
                 <Grid
@@ -33,4 +38,4 @@ function ApplicationsUsers() {
     );
 }
 
-export default ApplicationsUsers;
+export default ApplicationsArticles;

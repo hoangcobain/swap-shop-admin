@@ -11,7 +11,7 @@ function CategoriesManagement() {
         <>
             <PageTitleWrapper>
                 <PageHeader
-                    title="Categories Management"
+                    title="Quản lý loại sản phẩm"
                     buttonName="Create category"
                     modal={<CategoryModal />}
                 />

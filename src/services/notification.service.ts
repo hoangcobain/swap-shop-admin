@@ -1,8 +1,11 @@
 import {
+    changeNotificationDocument,
+    publicNotificationsDocument,
     pushNotificationDocument,
     pushPrivateNotificationDocument,
 } from 'src/graphql/document';
 import graphQLClient from 'src/libs/graphqlClient';
+import { Notification } from 'src/types/notification.type';
 import { SuccessResponse } from 'src/types/util.type';
 
 const notificationService = {
@@ -23,6 +26,21 @@ const notificationService = {
             >;
         }>(pushPrivateNotificationDocument, body);
         return pushPrivateNotification;
+    },
+    getPublicNotifications: async () => {
+        const { notificationsPublic } = await graphQLClient.request<{
+            notificationsPublic: Notification[] | null;
+        }>(publicNotificationsDocument);
+        return notificationsPublic;
+    },
+    changeNotification: async (body: {
+        content: string;
+        notificationId: string;
+    }) => {
+        const { changeNotification } = await graphQLClient.request<{
+            changeNotification: SuccessResponse<Notification, 'notification'>;
+        }>(changeNotificationDocument, body);
+        return changeNotification;
     },
 };
 

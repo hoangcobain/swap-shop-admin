@@ -169,7 +169,7 @@ function SidebarMenu() {
                     component="div"
                     subheader={
                         <ListSubheader component="div" disableSticky>
-                            Dashboards
+                            Thống kê
                         </ListSubheader>
                     }
                 >
@@ -193,7 +193,7 @@ function SidebarMenu() {
                     component="div"
                     subheader={
                         <ListSubheader component="div" disableSticky>
-                            Management
+                            Quản lý
                         </ListSubheader>
                     }
                 >
@@ -207,7 +207,7 @@ function SidebarMenu() {
                                     to={path.articles}
                                     startIcon={<TableChartTwoToneIcon />}
                                 >
-                                    Articles List
+                                    Danh sách bài đăng
                                 </Button>
                             </ListItem>
 
@@ -219,7 +219,7 @@ function SidebarMenu() {
                                     to={path.users}
                                     startIcon={<TableChartTwoToneIcon />}
                                 >
-                                    Users List
+                                    Danh sách người dùng
                                 </Button>
                             </ListItem>
 
@@ -231,7 +231,18 @@ function SidebarMenu() {
                                     to={path.categories}
                                     startIcon={<TableChartTwoToneIcon />}
                                 >
-                                    Categories List
+                                    Thể loại
+                                </Button>
+                            </ListItem>
+                            <ListItem component="div">
+                                <Button
+                                    disableRipple
+                                    component={RouterLink}
+                                    onClick={closeSidebar}
+                                    to={path.notification}
+                                    startIcon={<TableChartTwoToneIcon />}
+                                >
+                                    Thông báo
                                 </Button>
                             </ListItem>
                         </List>
