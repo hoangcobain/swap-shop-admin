@@ -8,18 +8,13 @@ import { useForm } from 'react-hook-form';
 
 import { useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { STATUS_ARTICLE, STATUS_ARTICLE_INPUT } from 'src/constants/article';
-import {
-    useCategoriesQuery,
-    usePushPrivateNotificationMutation,
-    useUpdateStatusArticleMutation,
-} from 'src/hooks/useRequest';
-import { Article } from 'src/types/article.type';
-import { FreeMode, Pagination } from 'swiper';
+
+import { STATUS_USER_INPUT } from 'src/constants/user';
+import { useUpdateStatusUserMutation } from 'src/hooks/useRequest';
+import { User } from 'src/types/user.type';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -27,84 +22,65 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     display: 'flex',
-    width: 1000,
+    width: 450,
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
 };
 
-type FormState = Omit<Article, 'id'>;
+type FormState = Omit<User, 'id'>;
 
 interface Props {
-    article: Article;
+    user: User;
 }
 
-const ArticleModal = forwardRef((props: Props, ref) => {
-    const { article } = props;
+const UserModal = forwardRef((props: Props, ref) => {
+    const { user } = props;
     const { handleSubmit, register } = useForm<FormState>({
         defaultValues: {
-            name: article.name,
-            categories: [],
-            price: article.price ? article.price : 0,
-            description: article.description,
-            images: article?.images || [],
-            thumbnail: '',
-            title: article.title,
-            status: article.status,
+            username: user.username,
+            email: user.email,
+            address: user.address,
+            phoneNumber: user.phoneNumber,
+            fullName: user.fullName,
+            status: user.status,
+            roles: [],
         },
     });
 
     const queryClient = useQueryClient();
-    const { data: categoriesData } = useCategoriesQuery();
-    const updateStatusArticle = useUpdateStatusArticleMutation();
-    const pushPrivateNotification = usePushPrivateNotificationMutation();
 
-    const handleSubmitArticle = (data: FormState) => {
+    const updateStatusUser = useUpdateStatusUserMutation();
+
+    const handleSubmitUser = (data: FormState) => {
         console.log(data);
-        updateStatusArticle.mutate(
+        updateStatusUser.mutate(
             {
                 status: data.status,
-                articleId: article.id,
+                userId: user.id,
             },
             {
                 onSuccess: (data) => {
                     if (data.success === true) {
                         toast.success(data.message, {
-                            toastId: 'updatedStatus',
+                            toastId: 'updatedUser',
                         });
                         queryClient.invalidateQueries({
-                            queryKey: ['articles'],
+                            queryKey: ['get-users'],
                         });
                     }
                 },
             },
         );
-        if (data.status === STATUS_ARTICLE.APPROVED) {
-            pushPrivateNotification.mutate({
-                content: `${article.name} đã được duyệt`,
-                recipientId: article.user.id,
-            });
-        } else if (data.status === STATUS_ARTICLE.REJECTED) {
-            pushPrivateNotification.mutate({
-                content: `${article.name} đã bị từ chối`,
-                recipientId: article.user.id,
-            });
-        } else {
-            pushPrivateNotification.mutate({
-                content: `${article.name} đã bị khóa vì vi phạm chính sách của chúng tôi`,
-                recipientId: article.user.id,
-            });
-        }
     };
 
-    const categories = categoriesData?.map((category) => category.name);
     const isLoading = false;
 
     return (
         <Box sx={style} ref={ref} tabIndex={-1}>
             <Box>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Edit article
+                    Edit user
                 </Typography>
                 <Box
                     component="form"
@@ -117,42 +93,57 @@ const ArticleModal = forwardRef((props: Props, ref) => {
                     display="flex"
                     flexDirection="column"
                     alignItems="center"
-                    onSubmit={handleSubmit(handleSubmitArticle)}
+                    onSubmit={handleSubmit(handleSubmitUser)}
                 >
                     <TextField
-                        label="Title"
+                        label="Username"
                         type="text"
                         variant="standard"
                         fullWidth
                         disabled
-                        {...register('title')}
+                        {...register('username')}
                     />
                     <TextField
-                        label="Description"
+                        label="Email"
                         type="text"
                         variant="standard"
                         fullWidth
                         disabled
-                        {...register('description')}
+                        {...register('email')}
                     />
                     <TextField
-                        label="Price"
+                        label="Address"
                         type="text"
                         variant="standard"
                         fullWidth
                         disabled
-                        {...register('price')}
+                        {...register('address')}
+                    />
+                    <TextField
+                        label="Phone"
+                        type="text"
+                        variant="standard"
+                        fullWidth
+                        disabled
+                        {...register('phoneNumber')}
+                    />
+                    <TextField
+                        label="Fullname"
+                        type="text"
+                        variant="standard"
+                        fullWidth
+                        disabled
+                        {...register('fullName')}
                     />
                     <Autocomplete
                         disablePortal
-                        options={STATUS_ARTICLE_INPUT}
+                        options={STATUS_USER_INPUT}
                         defaultValue={
-                            article.status === STATUS_ARTICLE_INPUT[1].label
-                                ? STATUS_ARTICLE_INPUT[1]
-                                : article.status ===
-                                  STATUS_ARTICLE_INPUT[3].label
-                                ? STATUS_ARTICLE_INPUT[3]
-                                : STATUS_ARTICLE_INPUT[2]
+                            user.status === STATUS_USER_INPUT[0].label
+                                ? STATUS_USER_INPUT[0]
+                                : user.status === STATUS_USER_INPUT[1].label
+                                ? STATUS_USER_INPUT[1]
+                                : STATUS_USER_INPUT[2]
                         }
                         renderInput={(params) => (
                             <TextField
@@ -164,9 +155,9 @@ const ArticleModal = forwardRef((props: Props, ref) => {
                             />
                         )}
                     />
-                    <Autocomplete
+                    {/* <Autocomplete
                         disablePortal
-                        options={categories ? categories : ['No categories']}
+                        options={role ? categories : ['No categories']}
                         defaultValue={article.categories.reduce(
                             (value, current) => {
                                 value += current.name + ', ';
@@ -182,7 +173,7 @@ const ArticleModal = forwardRef((props: Props, ref) => {
                                 fullWidth
                             />
                         )}
-                    />
+                    /> */}
                     <Box
                         sx={{
                             display: 'flex',
@@ -206,35 +197,8 @@ const ArticleModal = forwardRef((props: Props, ref) => {
                     </Box>
                 </Box>
             </Box>
-            {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-                Image
-            </Typography> */}
-            <>
-                <Swiper
-                    slidesPerView={2}
-                    spaceBetween={20}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[FreeMode, Pagination]}
-                    className="mySwiper"
-                    width={500}
-                    height={1000}
-                    style={{ marginLeft: '10px' }}
-                >
-                    {article.images.map((image) => (
-                        <SwiperSlide key={image}>
-                            <img
-                                style={{ width: '100%', height: '80%' }}
-                                src={image}
-                                loading="lazy"
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </>
         </Box>
     );
 });
 
-export default ArticleModal;
+export default UserModal;

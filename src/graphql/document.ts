@@ -15,7 +15,6 @@ export const loginDocument = gql`
                 fullName
                 birthday
                 avatar
-                rating
                 createdDate
                 updatedDate
             }
@@ -34,7 +33,6 @@ export const meDocument = gql`
             fullName
             birthday
             avatar
-            rating
             createdDate
             updatedDate
         }
@@ -52,7 +50,15 @@ export const getUsersDocument = gql`
             fullName
             birthday
             avatar
-            rating
+            roles {
+                role {
+                    id
+                    name
+                    createdDate
+                    updatedDate
+                }
+            }
+            status
             createdDate
             updatedDate
         }
@@ -62,6 +68,22 @@ export const getUsersDocument = gql`
 export const logoutDocument = gql`
     mutation Logout {
         logout
+    }
+`;
+
+export const changeStatusUserDocument = gql`
+    mutation ChangeStatusUser($status: String!, $userId: String!) {
+        changeStatusUser(status: $status, userId: $userId) {
+            code
+            success
+            message
+            user {
+                id
+                username
+                createdDate
+                updatedDate
+            }
+        }
     }
 `;
 
@@ -139,7 +161,6 @@ export const articlesDocument = gql`
                         fullName
                         birthday
                         avatar
-                        rating
                         createdDate
                         updatedDate
                     }
@@ -154,6 +175,64 @@ export const articlesDocument = gql`
                 }
             }
             message
+        }
+    }
+`;
+
+export const changeStatusArticleDocument = gql`
+    mutation ChangeStatusArticle($status: String!, $articleId: String!) {
+        changeStatusArticle(status: $status, articleId: $articleId) {
+            code
+            success
+            article {
+                id
+                title
+                description
+                thumbnail
+                images
+                price
+                productName
+                categories {
+                    id
+                    name
+                }
+                status
+                views
+                createdDate
+                updatedDate
+            }
+        }
+    }
+`;
+
+export const pushNotificationDocument = gql`
+    mutation PushNotification($content: String!) {
+        pushNotification(content: $content) {
+            success
+            message
+            notification {
+                id
+                content
+                userId
+                createdDate
+                updatedDate
+            }
+        }
+    }
+`;
+
+export const pushPrivateNotificationDocument = gql`
+    mutation PushPrivateNotification($recipientId: String!, $content: String!) {
+        pushPrivateNotification(recipientId: $recipientId, content: $content) {
+            success
+            message
+            notification {
+                id
+                content
+                userId
+                createdDate
+                updatedDate
+            }
         }
     }
 `;
