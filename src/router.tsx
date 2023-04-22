@@ -38,6 +38,10 @@ const CategoriesManagement = Loader(
     lazy(() => import('src/content/applications/CategoriesManagement')),
 );
 
+const NotificationManagement = Loader(
+    lazy(() => import('src/content/applications/NotificationManagement')),
+);
+
 const UserSettings = Loader(
     lazy(() => import('src/content/applications/Users/settings')),
 );
@@ -110,6 +114,10 @@ const routes: RouteObject[] = [
                     {
                         path: 'categories',
                         element: <CategoriesManagement />,
+                    },
+                    {
+                        path: 'notification',
+                        element: <NotificationManagement />,
                     },
                     {
                         path: 'profile',

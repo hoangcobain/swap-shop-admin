@@ -6,4 +6,5 @@ export const path = {
     profileSettings: '/management/profile/settings',
     login: '/login',
     management: 'management',
+    notification: '/management/notification',
 };

@@ -87,3 +87,17 @@ export function usePushPrivateNotificationMutation() {
         mutationFn: notificationService.pushPrivateNotification,
     });
 }
+
+export function usePublicNotificationsQuery() {
+    return useQuery({
+        queryKey: ['notificationsPublic'],
+        queryFn: notificationService.getPublicNotifications,
+        refetchInterval: 2000,
+    });
+}
+
+export function useChangeNotifyMutation() {
+    return useMutation({
+        mutationFn: notificationService.changeNotification,
+    });
+}

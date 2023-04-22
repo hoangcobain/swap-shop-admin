@@ -43,13 +43,13 @@ const ArticleModal = forwardRef((props: Props, ref) => {
     const { article } = props;
     const { handleSubmit, register } = useForm<FormState>({
         defaultValues: {
-            name: article.name,
+            name: '',
             categories: [],
-            price: article.price ? article.price : 0,
-            description: article.description,
-            images: article?.images || [],
+            price: 0,
+            description: '',
+            images: [],
             thumbnail: '',
-            title: article.title,
+            title: '',
             status: article.status,
         },
     });

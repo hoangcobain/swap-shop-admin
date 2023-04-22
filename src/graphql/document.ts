@@ -236,3 +236,23 @@ export const pushPrivateNotificationDocument = gql`
         }
     }
 `;
+
+export const publicNotificationsDocument = gql`
+    query NotificationsPublic {
+        notificationsPublic {
+            id
+            content
+            createdDate
+            updatedDate
+        }
+    }
+`;
+
+export const changeNotificationDocument = gql`
+    mutation ChangeNotification($content: String!, $notificationId: String!) {
+        changeNotification(content: $content, notificationId: $notificationId) {
+            success
+            message
+        }
+    }
+`;

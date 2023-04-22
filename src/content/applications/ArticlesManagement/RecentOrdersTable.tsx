@@ -197,14 +197,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell padding="checkbox">
-                                <Checkbox
-                                    color="primary"
-                                    checked={selectedAllArticles}
-                                    indeterminate={selectedSomeArticles}
-                                    onChange={handleSelectAllArticles}
-                                />
-                            </TableCell>
                             <TableCell>ID</TableCell>
                             <TableCell>Title</TableCell>
                             <TableCell>Description</TableCell>
@@ -219,26 +211,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
                                 article.id,
                             );
                             return (
-                                <TableRow
-                                    hover
-                                    key={article.id}
-                                    selected={isArticleSelected}
-                                >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            color="primary"
-                                            checked={isArticleSelected}
-                                            onChange={(
-                                                event: ChangeEvent<HTMLInputElement>,
-                                            ) =>
-                                                handleSelectOneArticle(
-                                                    event,
-                                                    article.id,
-                                                )
-                                            }
-                                            value={isArticleSelected}
-                                        />
-                                    </TableCell>
+                                <TableRow hover key={article.id}>
                                     <TableCell>
                                         <Typography
                                             variant="body1"

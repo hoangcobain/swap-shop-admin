@@ -13,11 +13,7 @@ function ApplicationsArticles() {
                 <title>Articles - Applications</title>
             </Helmet>
             <PageTitleWrapper>
-                <PageHeader
-                    title="Article management"
-                    buttonName="Article"
-                    modal={<div>Hello</div>}
-                />
+                <PageHeader title="Quản lý bài đăng" />
             </PageTitleWrapper>
             <Container maxWidth="lg">
                 <Grid

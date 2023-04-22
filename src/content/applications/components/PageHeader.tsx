@@ -6,8 +6,8 @@ import Popover from 'src/components/Popover';
 
 interface PageHeaderProps {
     title: string;
-    buttonName: string;
-    modal: React.ReactElement;
+    buttonName?: string;
+    modal?: React.ReactElement;
 }
 
 function PageHeader({ title, buttonName, modal }: PageHeaderProps) {
@@ -22,19 +22,21 @@ function PageHeader({ title, buttonName, modal }: PageHeaderProps) {
                     {title}
                 </Typography>
                 <Typography variant="subtitle2">
-                    {profile.username}, these are your recent transactions
+                    Chào {profile.username}, chúc bạn 1 ngày vui vẻ
                 </Typography>
             </Grid>
             <Grid item>
-                <Popover renderPopover={modal}>
-                    <Button
-                        sx={{ mt: { xs: 2, md: 0 } }}
-                        variant="contained"
-                        startIcon={<AddTwoToneIcon fontSize="small" />}
-                    >
-                        {buttonName}
-                    </Button>
-                </Popover>
+                {buttonName && modal && (
+                    <Popover renderPopover={modal}>
+                        <Button
+                            sx={{ mt: { xs: 2, md: 0 } }}
+                            variant="contained"
+                            startIcon={<AddTwoToneIcon fontSize="small" />}
+                        >
+                            {buttonName}
+                        </Button>
+                    </Popover>
+                )}
             </Grid>
         </Grid>
     );
