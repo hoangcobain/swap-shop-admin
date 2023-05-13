@@ -15,6 +15,7 @@ export default function useQueryConfig() {
             price_max: queryParams.price_max,
             price_min: queryParams.price_min,
             categories: queryParams.categories,
+            status: queryParams.status,
         },
         isUndefined,
     );

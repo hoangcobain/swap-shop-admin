@@ -180,10 +180,10 @@ function SidebarMenu() {
                                     disableRipple
                                     component={RouterLink}
                                     onClick={closeSidebar}
-                                    to={path.overview}
+                                    to={path.articleOverview}
                                     startIcon={<BrightnessLowTwoToneIcon />}
                                 >
-                                    Overview
+                                    Article overview
                                 </Button>
                             </ListItem>
                         </List>
@@ -248,7 +248,7 @@ function SidebarMenu() {
                         </List>
                     </SubMenuWrapper>
                 </List>
-                <List
+                {/* <List
                     component="div"
                     subheader={
                         <ListSubheader component="div" disableSticky>
@@ -271,7 +271,7 @@ function SidebarMenu() {
                             </ListItem>
                         </List>
                     </SubMenuWrapper>
-                </List>
+                </List> */}
             </MenuWrapper>
         </>
     );

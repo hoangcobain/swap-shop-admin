@@ -12,6 +12,7 @@ import ViewWeekTwoToneIcon from '@mui/icons-material/ViewWeekTwoTone';
 import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone';
 import WatchListColumn from './WatchListColumn';
 import WatchListRow from './WatchListRow';
+import { DateRangePicker, DateTimePicker } from '@mui/lab';
 
 const EmptyResultsWrapper = styled('img')(
     ({ theme }) => `
@@ -55,10 +56,11 @@ function WatchList() {
                     </ToggleButton>
                 </ToggleButtonGroup>
             </Box>
-
             {tabs === 'watch_list_columns' && <WatchListColumn />}
 
             {tabs === 'watch_list_rows' && <WatchListRow />}
+
+            <DateRangePicker />
 
             {!tabs && (
                 <Card

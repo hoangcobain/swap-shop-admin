@@ -16,4 +16,6 @@ export interface Article {
     createdDate: string;
     updatedDate: string;
     status: ArticleStatus;
+    views: number;
+    favoritesCount: number;
 }

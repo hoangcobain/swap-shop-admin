@@ -24,6 +24,10 @@ const Login = Loader(lazy(() => import('src/content/login')));
 
 const Overview = Loader(lazy(() => import('src/content/dashboards/Overview')));
 
+const ArticleOverview = Loader(
+    lazy(() => import('src/content/dashboards/ArticleOverView')),
+);
+
 // Applications
 
 const ArticlesManagement = Loader(
@@ -92,6 +96,10 @@ const routes: RouteObject[] = [
                     {
                         path: 'overview',
                         element: <Overview />,
+                    },
+                    {
+                        path: 'articleOverview',
+                        element: <ArticleOverview />,
                     },
                 ],
             },
