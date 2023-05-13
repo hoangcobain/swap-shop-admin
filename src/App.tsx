@@ -8,6 +8,7 @@ import { CssBaseline } from '@mui/material';
 import ThemeProvider from './theme/ThemeProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './global.css';
 
 function App() {
     const content = useRoutes(router);

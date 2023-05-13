@@ -281,7 +281,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
                                     </TableCell>
 
                                     <TableCell align="center">
-                                        <div style={{ display: 'flex' }}>
+                                        <div>
                                             <Popover
                                                 renderPopover={
                                                     <ArticleModal
@@ -311,24 +311,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
                                                     </IconButton>
                                                 </Tooltip>
                                             </Popover>
-                                            <Tooltip title="Delete Order" arrow>
-                                                <IconButton
-                                                    sx={{
-                                                        '&:hover': {
-                                                            background:
-                                                                theme.colors
-                                                                    .error
-                                                                    .lighter,
-                                                        },
-                                                        color: theme.palette
-                                                            .error.main,
-                                                    }}
-                                                    color="inherit"
-                                                    size="small"
-                                                >
-                                                    <DeleteTwoToneIcon fontSize="small" />
-                                                </IconButton>
-                                            </Tooltip>
                                         </div>
                                     </TableCell>
                                 </TableRow>

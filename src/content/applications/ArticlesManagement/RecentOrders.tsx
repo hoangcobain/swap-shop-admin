@@ -3,7 +3,9 @@ import { useArticlesQuery } from 'src/hooks/useRequest';
 import RecentOrdersTable from './RecentOrdersTable';
 
 function RecentOrders() {
-    const { data: articles } = useArticlesQuery();
+    const { data: articles } = useArticlesQuery({
+        queryConfig: { limit: '10', page: '1' },
+    });
 
     return (
         <Card>

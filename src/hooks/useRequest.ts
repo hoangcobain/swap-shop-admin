@@ -5,6 +5,7 @@ import categoryService from 'src/services/category.service';
 import userService from 'src/services/user.service';
 import useQueryConfig from './useQueryConfig';
 import notificationService from 'src/services/notification.service';
+import { QueryConfig } from 'src/types/util.type';
 
 export function useGetUsers() {
     return useQuery({
@@ -62,8 +63,11 @@ export function useUpdateCategoryMutation() {
     });
 }
 
-export function useArticlesQuery() {
-    const queryConfig = useQueryConfig();
+export function useArticlesQuery({
+    queryConfig,
+}: {
+    queryConfig: QueryConfig;
+}) {
     return useQuery({
         queryKey: ['articles', queryConfig],
         queryFn: () => articleService.getArticles(queryConfig),

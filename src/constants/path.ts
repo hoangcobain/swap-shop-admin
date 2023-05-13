@@ -1,5 +1,6 @@
 export const path = {
     overview: '/dashboards/overview',
+    articleOverview: '/dashboards/articleOverview',
     articles: '/management/articles',
     categories: '/management/categories',
     users: '/management/users',

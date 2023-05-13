@@ -24,12 +24,16 @@ export type SuccessResponsePagination<T, K extends string = 'data'> = {
 };
 
 export type QueryConfig = {
-    page?: number;
-    limit?: number;
+    page?: string;
+    limit?: string;
     sort_by?: string;
-    order_by?: 'asc' | 'desc';
+    order_by?: 'ASC' | 'DESC';
     title?: string;
-    price_min?: number;
-    price_max?: number;
+    price_min?: string;
+    price_max?: string;
     categories?: string[];
+    start_date?: string;
+    end_date?: string;
+    status?: string;
+    all?: boolean;
 };

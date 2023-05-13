@@ -144,6 +144,7 @@ export const articlesDocument = gql`
                     thumbnail
                     images
                     price
+                    views
                     productName
                     categories {
                         createdDate
