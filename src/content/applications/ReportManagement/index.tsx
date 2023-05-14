@@ -1,19 +1,23 @@
+import { Helmet } from 'react-helmet-async';
+import PageHeader from 'src/content/applications/components/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageHeader from '../components/PageHeader';
+import { Grid, Container } from '@mui/material';
 
-import CategoryModal from '../CategoriesManagement/CategoryModal';
-import RecentOrders from './RecentOrders';
-import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
+import RecentOrders from './RecentOrders';
+import NotificationModal from './NotificationModal';
 
-function CategoriesManagement() {
+function ApplicationsArticles() {
     return (
         <>
+            <Helmet>
+                <title>Báo cáo - Applications</title>
+            </Helmet>
             <PageTitleWrapper>
                 <PageHeader
-                    title="Quản lý loại sản phẩm"
-                    buttonName="Thể loại"
-                    modal={<CategoryModal />}
+                    title="Danh sách báo cáo"
+                    // buttonName="báo cáo"
+                    // modal={<NotificationModal />}
                 />
             </PageTitleWrapper>
             <Container maxWidth="lg">
@@ -34,4 +38,4 @@ function CategoriesManagement() {
     );
 }
 
-export default CategoriesManagement;
+export default ApplicationsArticles;

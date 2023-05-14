@@ -48,7 +48,7 @@ function Hero() {
                     saveProfile(data.user);
                     setIsAuthenticated(true);
                     setProfile(data.user);
-                    navigate(path.overview);
+                    navigate(path.articleOverview);
                 },
                 onError(error: any) {
                     toast.error(

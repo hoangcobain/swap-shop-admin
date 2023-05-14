@@ -216,6 +216,18 @@ function SidebarMenu() {
                                     disableRipple
                                     component={RouterLink}
                                     onClick={closeSidebar}
+                                    to={path.reports}
+                                    startIcon={<TableChartTwoToneIcon />}
+                                >
+                                    Danh sách báo cáo
+                                </Button>
+                            </ListItem>
+
+                            <ListItem component="div">
+                                <Button
+                                    disableRipple
+                                    component={RouterLink}
+                                    onClick={closeSidebar}
                                     to={path.users}
                                     startIcon={<TableChartTwoToneIcon />}
                                 >

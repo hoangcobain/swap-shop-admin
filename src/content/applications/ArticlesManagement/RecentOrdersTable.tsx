@@ -198,11 +198,11 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
-                            <TableCell>Title</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell align="right">Amount</TableCell>
-                            <TableCell align="right">Status</TableCell>
-                            <TableCell align="right">Actions</TableCell>
+                            <TableCell>Tiêu đề</TableCell>
+                            <TableCell>Mô tả</TableCell>
+                            <TableCell align="center">Tổng tiền</TableCell>
+                            <TableCell align="right">Trạng thái</TableCell>
+                            <TableCell align="right">Hành động</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

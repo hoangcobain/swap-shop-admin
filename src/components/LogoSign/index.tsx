@@ -99,7 +99,14 @@ function Logo() {
 
     return (
         <TooltipWrapper title="Second chance dashboard" arrow>
-            <LogoWrapper to="/login">logo</LogoWrapper>
+            <LogoWrapper to="/dashboards/articleOverview">
+                <LogoSignWrapper>
+                    <img
+                        alt="BTC"
+                        src="/static/images/placeholders/logo/logo-no-background.png"
+                    />
+                </LogoSignWrapper>
+            </LogoWrapper>
         </TooltipWrapper>
     );
 }

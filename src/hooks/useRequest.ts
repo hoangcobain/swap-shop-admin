@@ -6,6 +6,7 @@ import userService from 'src/services/user.service';
 import useQueryConfig from './useQueryConfig';
 import notificationService from 'src/services/notification.service';
 import { QueryConfig } from 'src/types/util.type';
+import reportService from 'src/services/report.serivce';
 
 export function useGetUsers() {
     return useQuery({
@@ -71,6 +72,13 @@ export function useArticlesQuery({
     return useQuery({
         queryKey: ['articles', queryConfig],
         queryFn: () => articleService.getArticles(queryConfig),
+    });
+}
+
+export function useReportsQuery() {
+    return useQuery({
+        queryKey: ['reports'],
+        queryFn: () => reportService.getReports(),
     });
 }
 

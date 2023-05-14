@@ -257,3 +257,24 @@ export const changeNotificationDocument = gql`
         }
     }
 `;
+
+export const reportsDocument = gql`
+    query Reports {
+        reports {
+            user {
+                id
+                username
+                fullName
+            }
+            reason
+            id
+            description
+            createdDate
+            updatedDate
+            article {
+                id
+                title
+            }
+        }
+    }
+`;

@@ -60,7 +60,13 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ categories }) => {
         color: '#333',
     };
 
-    const tableRows = Object.keys(categories[0]);
+    const tableRows = [
+        'Id',
+        'Tên thể loại',
+        'Hình ảnh',
+        'Ngày khởi tạo',
+        'Ngày cập nhật',
+    ];
 
     const handlePageChange = (event: any, newPage: number): void => {
         setPage(newPage);
@@ -83,8 +89,8 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ categories }) => {
                                     {item}
                                 </TableCell>
                             ))}
-                            <TableCell align="right" sx={optionsHeaderRow}>
-                                Actions
+                            <TableCell align="left" sx={optionsHeaderRow}>
+                                Hành động
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -135,7 +141,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ categories }) => {
                                         </Typography>
                                     </TableCell>
 
-                                    <TableCell align="right">
+                                    <TableCell align="center">
                                         <Popover
                                             renderPopover={
                                                 <CategoryModal
