@@ -127,9 +127,18 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
         name: status,
     }));
 
-    const tableRows = Object.keys(
-        omit(users[0], ['birthday', 'avatar', 'rating']),
-    );
+    const tableRows = [
+        'Id',
+        'Tên đăng nhập',
+        'Email',
+        'Địa chỉ',
+        'Số điện thoại',
+        'Họ và tên',
+        'Quyền',
+        'Trạng thái',
+        'Ngày khởi tạo',
+        'Ngày cập nhật',
+    ];
 
     const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
         let value: string | null = null;
@@ -213,7 +222,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ users }) => {
                                 </TableCell>
                             ))}
                             <TableCell align="right" sx={optionsHeaderRow}>
-                                Actions
+                                Hành động
                             </TableCell>
                         </TableRow>
                     </TableHead>

@@ -34,6 +34,10 @@ const ArticlesManagement = Loader(
     lazy(() => import('src/content/applications/ArticlesManagement')),
 );
 
+const ReportsManagement = Loader(
+    lazy(() => import('src/content/applications/ReportManagement')),
+);
+
 const UsersManagement = Loader(
     lazy(() => import('src/content/applications/UsersManagement')),
 );
@@ -114,6 +118,10 @@ const routes: RouteObject[] = [
                     {
                         path: 'articles',
                         element: <ArticlesManagement />,
+                    },
+                    {
+                        path: 'reports',
+                        element: <ReportsManagement />,
                     },
                     {
                         path: 'users',
