@@ -6,7 +6,7 @@ import userService from 'src/services/user.service';
 import useQueryConfig from './useQueryConfig';
 import notificationService from 'src/services/notification.service';
 import { QueryConfig } from 'src/types/util.type';
-import reportService from 'src/services/report.serivce';
+import reportService from 'src/services/report.service';
 
 export function useGetUsers() {
     return useQuery({
