@@ -103,7 +103,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ notifications }) => {
                             <TableCell>ID</TableCell>
                             <TableCell>Nội dung</TableCell>
                             <TableCell>Ngày tạo</TableCell>
-                            <TableCell>Actions</TableCell>
+                            <TableCell>Hành động</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -103,7 +103,7 @@ const CategoryModal = forwardRef((props: Props, ref) => {
     return (
         <Box sx={style} ref={ref} tabIndex={-1}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-                Diều chỉnh loại sản phẩm:
+                Điều chỉnh loại sản phẩm:
             </Typography>
             <Box
                 component="form"

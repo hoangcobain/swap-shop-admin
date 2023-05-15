@@ -81,17 +81,17 @@ const ArticleModal = forwardRef((props: Props, ref) => {
         );
         if (data.status === STATUS_ARTICLE.APPROVED) {
             pushPrivateNotification.mutate({
-                content: `${article.name} đã được duyệt`,
+                content: `${article.title} đã được duyệt`,
                 recipientId: article.user.id,
             });
         } else if (data.status === STATUS_ARTICLE.REJECTED) {
             pushPrivateNotification.mutate({
-                content: `${article.name} đã bị từ chối`,
+                content: `${article.title} đã bị từ chối`,
                 recipientId: article.user.id,
             });
         } else {
             pushPrivateNotification.mutate({
-                content: `${article.name} đã bị khóa vì vi phạm chính sách của chúng tôi`,
+                content: `${article.title} đã bị khóa vì vi phạm chính sách của chúng tôi`,
                 recipientId: article.user.id,
             });
         }

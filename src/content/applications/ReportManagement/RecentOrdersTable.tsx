@@ -80,7 +80,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ reports }) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell padding="checkbox"></TableCell>
                             <TableCell>ID</TableCell>
                             <TableCell>Nội dung</TableCell>
                             <TableCell>Mô tả</TableCell>

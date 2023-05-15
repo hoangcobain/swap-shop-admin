@@ -322,7 +322,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ articles }) => {
             <Box p={2}>
                 <TablePagination
                     component="div"
-                    count={filteredArticles.length}
+                    count={articles.length}
                     onPageChange={handlePageChange}
                     onRowsPerPageChange={handleLimitChange}
                     page={page}
