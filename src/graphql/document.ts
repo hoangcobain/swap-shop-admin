@@ -260,7 +260,7 @@ export const changeNotificationDocument = gql`
 
 export const reportsDocument = gql`
     query Reports {
-        reports {
+        reportsList {
             user {
                 id
                 username

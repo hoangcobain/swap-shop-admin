@@ -79,6 +79,7 @@ export function useReportsQuery() {
     return useQuery({
         queryKey: ['reports'],
         queryFn: () => reportService.getReports(),
+        cacheTime: 0,
     });
 }
 
