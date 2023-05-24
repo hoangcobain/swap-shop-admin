@@ -259,7 +259,7 @@ export const changeNotificationDocument = gql`
 `;
 
 export const reportsDocument = gql`
-    query Reports {
+    query ReportsList {
         reportsList {
             user {
                 id

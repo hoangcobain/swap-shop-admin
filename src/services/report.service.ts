@@ -5,10 +5,10 @@ import { SuccessResponsePagination } from 'src/types/util.type';
 
 const reportService = {
     getReports: async () => {
-        const { reports } = await graphQLClient.request<{
-            reports: Report[] | null;
+        const { reportsList } = await graphQLClient.request<{
+            reportsList: Report[] | null;
         }>(reportsDocument);
-        return reports;
+        return reportsList;
     },
 };
 
